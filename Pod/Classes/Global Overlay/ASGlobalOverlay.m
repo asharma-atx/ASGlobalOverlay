@@ -45,6 +45,9 @@ const static CGFloat kTintOverlayAlpha = 0.6;
 
 @property (strong, nonatomic) NSTimer *dismissalTimer;
 
+@property (nonatomic) BOOL responderResignedAutomatically;
+@property (weak, nonatomic) id managedResponder;
+
 @end
 
 @implementation ASGlobalOverlay
@@ -108,7 +111,11 @@ const static CGFloat kTintOverlayAlpha = 0.6;
 - (void)decrementShowingCountAndCleanUpIfNecessary{
     
     _showingCount --;
-    if (_showingCount <= 0) [self removeAndNullifyOverlayContainerAndTintOverlay];
+    if (_showingCount <= 0){
+        
+        [self removeAndNullifyOverlayContainerAndTintOverlay];
+        [self makeManagedResponderFirstResponderIfAutomaticallyResignedAndNilReference];
+    }
 }
 
 /**
@@ -129,10 +136,11 @@ const static CGFloat kTintOverlayAlpha = 0.6;
     
     _showingCount ++;
     
-    if (_showingCount <= 1){ // anything less than 1 is never expected. safety measure
+    if (_showingCount <= 1){ // anything less than 1 is never expected. <= is used as a safety measure.
         
         [self setupOverlayContainerAndTint];
         [self reframeOverlayContainerAndTintOverlay];
+        [self resignManagedResponderIfFirstResponder];
     }
     
     else {
@@ -516,6 +524,41 @@ const static CGFloat kTintOverlayAlpha = 0.6;
     _showingCount = 0;
     
     [self removeAndNullifyOverlayContainerAndTintOverlay];
+}
+
+#pragma mark - First Responder Management
+
++ (void)manageResponderStateDuringNextPopover:(id)responder{
+    
+    BOOL isTextFieldOrTextView = ([responder isKindOfClass:[UITextField class]] || [responder isKindOfClass:[UITextView class]]);
+    
+    if (isTextFieldOrTextView) [ASGlobalOverlay sharedOverlay].managedResponder = responder;
+    else [ASGlobalOverlay sharedOverlay].managedResponder = nil;
+}
+
+- (void)resignManagedResponderIfFirstResponder{
+    
+    if (!_managedResponder || ![_managedResponder respondsToSelector:@selector(isFirstResponder)]) {
+        
+        _responderResignedAutomatically = NO;
+    }
+    
+    else if ([_managedResponder isFirstResponder]){
+        
+        _responderResignedAutomatically = YES;
+        [_managedResponder resignFirstResponder];
+    }
+}
+
+- (void)makeManagedResponderFirstResponderIfAutomaticallyResignedAndNilReference{
+    
+    if (_responderResignedAutomatically && [_managedResponder respondsToSelector:@selector(becomeFirstResponder)]) {
+        
+        _responderResignedAutomatically = NO;
+        [_managedResponder becomeFirstResponder];
+    }
+    
+    _managedResponder = nil;
 }
 
 #pragma mark - Keyboard Management

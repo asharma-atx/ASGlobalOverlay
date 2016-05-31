@@ -267,6 +267,26 @@
 
 + (void)dismissEverythingImmediately;
 
+// ===========================
+// Automatic Keyboard Handling
+// ===========================
+
+/**
+ *
+ * Resigns the given responder immediately before ASGlobalOverlay shows the next popover (if the given responder isFirstResponder).
+ * After dismissing the popover (or the last popover in a chain), ASGlobalOverlay will make the same responder the first responder again.
+ * This hides / shows the keyboard to prevent the user from providing input while a popover is shown.
+ *
+ * This should be called immediately before a popover is show.
+ *
+ * @important Responder can only be an instance of UITextField, UITextView, or a subclass of one of those.
+ *
+ * @param responder Nonnull. The responder to be managed during the next popover's presentation (or chain of popovers).
+ *
+ */
+
++ (void)manageResponderStateDuringNextPopover:(id)responder;
+
 // ==================
 // Visibility Helpers
 // ==================
