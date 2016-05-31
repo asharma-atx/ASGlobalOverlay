@@ -83,9 +83,7 @@
     
     [self dismissKeyboard];
 
-    ASUserOption *ok = [ASUserOption userOptionWithTitle:@"OK" actionBlock:^{NSLog(@"'OK' pressed");}];
-    
-    [ASGlobalOverlay showAlertWithTitle:@"Robot are Attacking!" message:@"We probably should have treated our computers betters." userOptions:@[ok]];
+    [ASGlobalOverlay showAlertWithTitle:@"Robots are Attacking!" message:@"We probably should have treated our computers betters." dismissButtonTitle:@"OK"];
 }
 
 - (IBAction)showAlertTwoOptionsSmall:(id)sender {

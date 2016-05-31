@@ -247,6 +247,13 @@ const static CGFloat kTintOverlayAlpha = 0.6;
     [[ASGlobalOverlay sharedOverlay] dismissShowingAlertWithDelay:displayTime];
 }
 
++ (void)showAlertWithTitle:(NSString *)title message:(NSString *)message dismissButtonTitle:(NSString *)buttonTitle{
+    
+    if (!buttonTitle) buttonTitle = @"Okay";
+    ASUserOption *userOption = [ASUserOption userOptionWithTitle:buttonTitle actionBlock:nil];
+    [[ASGlobalOverlay sharedOverlay] showAlertWithTitle:title message:message userOptions:@[userOption]];
+}
+
 - (void)showAlertWithTitle:(NSString*)title message:(NSString*)message userOptions:(NSArray*)userOptions{
     
     [self incrementShowingCountAndPrepareContainerOverlayForNewSubview];

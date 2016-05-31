@@ -127,9 +127,27 @@
 
 /**
  *
+ * Shows an alert that is visually similar to an alert-style UIAlertController.
+ *
+ * This helper method provides an easy way present an alert that requires one button and no userAction block.
+ *
+ * If you need mutilple buttons or custom userAction blocks, please use showAlertWithTitle:message:userOptions:.
+ *
+ * @param title Nullable. The title of the alert. The title is restricted to a single line. Specifying nil defaults the title to 'Alert'.
+ *
+ * @param message Nullable. A message describing the alert. Messages longer than 8 lines will be truncated.
+ *
+ * @param buttonTitle Nullable. The title of the dismiss button.
+ *
+ */
+
++ (void)showAlertWithTitle:(NSString *)title message:(NSString *)message dismissButtonTitle:(NSString *)buttonTitle;
+
+/**
+ *
  * Sets a timer that will dismiss the alert that is currently showing upon firing.
  *
- * @param delay the amount of time that the alert will be displayed before it is
+ * @param delay the amount of time that the alert will be displayed before it is.
  *
  * @warning If no alert is being shown, this method will do nothing.
  *
