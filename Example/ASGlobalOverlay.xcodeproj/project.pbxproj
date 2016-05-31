@@ -256,6 +256,9 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Amit Sharma";
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = G8D7H8E252;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -524,6 +527,7 @@
 			baseConfigurationReference = C54E0254F583A01C41B5EE95 /* Pods-ASGlobalOverlay_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ASGlobalOverlay/ASGlobalOverlay-Prefix.pch";
 				INFOPLIST_FILE = "ASGlobalOverlay/ASGlobalOverlay-Info.plist";
@@ -540,6 +544,7 @@
 			baseConfigurationReference = F1B4A45B612D156C502AD3D1 /* Pods-ASGlobalOverlay_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ASGlobalOverlay/ASGlobalOverlay-Prefix.pch";
 				INFOPLIST_FILE = "ASGlobalOverlay/ASGlobalOverlay-Info.plist";
