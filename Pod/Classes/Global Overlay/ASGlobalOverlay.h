@@ -131,7 +131,7 @@
  *
  * This helper method provides an easy way present an alert that requires one button and no userAction block.
  *
- * If you need mutilple buttons or custom userAction blocks, please use showAlertWithTitle:message:userOptions:.
+ * If you need multiple buttons or custom userAction blocks, please use showAlertWithTitle:message:userOptions:.
  *
  * @param title Nullable. The title of the alert. The title is restricted to a single line. Specifying nil defaults the title to 'Alert'.
  *
