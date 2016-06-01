@@ -209,12 +209,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6003F5BF195388D20070C39A /* Build configuration list for PBXNativeTarget "ASGlobalOverlay_Example" */;
 			buildPhases = (
-				AC626D1A518292D594C18867 /* Check Pods Manifest.lock */,
+				AC626D1A518292D594C18867 /* 📦 Check Pods Manifest.lock */,
 				6003F586195388D20070C39A /* Sources */,
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
-				DE4B5B21868C089B0DADC65C /* Embed Pods Frameworks */,
-				4D3D3CDDE0ADA4B90672C8B8 /* Copy Pods Resources */,
+				DE4B5B21868C089B0DADC65C /* 📦 Embed Pods Frameworks */,
+				4D3D3CDDE0ADA4B90672C8B8 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -229,12 +229,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6003F5C2195388D20070C39A /* Build configuration list for PBXNativeTarget "ASGlobalOverlay_Tests" */;
 			buildPhases = (
-				7ECDC6E2C891489C98AF30DD /* Check Pods Manifest.lock */,
+				7ECDC6E2C891489C98AF30DD /* 📦 Check Pods Manifest.lock */,
 				6003F5AA195388D20070C39A /* Sources */,
 				6003F5AB195388D20070C39A /* Frameworks */,
 				6003F5AC195388D20070C39A /* Resources */,
-				FA51C2402A1B2530E7F2DD5B /* Embed Pods Frameworks */,
-				A1FC0F0577684B5C074A1CF0 /* Copy Pods Resources */,
+				FA51C2402A1B2530E7F2DD5B /* 📦 Embed Pods Frameworks */,
+				A1FC0F0577684B5C074A1CF0 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -256,6 +256,9 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Amit Sharma";
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = G8D7H8E252;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -305,14 +308,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4D3D3CDDE0ADA4B90672C8B8 /* Copy Pods Resources */ = {
+		4D3D3CDDE0ADA4B90672C8B8 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,14 +323,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ASGlobalOverlay_Example/Pods-ASGlobalOverlay_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7ECDC6E2C891489C98AF30DD /* Check Pods Manifest.lock */ = {
+		7ECDC6E2C891489C98AF30DD /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -335,14 +338,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		A1FC0F0577684B5C074A1CF0 /* Copy Pods Resources */ = {
+		A1FC0F0577684B5C074A1CF0 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,14 +353,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ASGlobalOverlay_Tests/Pods-ASGlobalOverlay_Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AC626D1A518292D594C18867 /* Check Pods Manifest.lock */ = {
+		AC626D1A518292D594C18867 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -365,14 +368,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		DE4B5B21868C089B0DADC65C /* Embed Pods Frameworks */ = {
+		DE4B5B21868C089B0DADC65C /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -380,14 +383,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ASGlobalOverlay_Example/Pods-ASGlobalOverlay_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FA51C2402A1B2530E7F2DD5B /* Embed Pods Frameworks */ = {
+		FA51C2402A1B2530E7F2DD5B /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -524,6 +527,7 @@
 			baseConfigurationReference = C54E0254F583A01C41B5EE95 /* Pods-ASGlobalOverlay_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ASGlobalOverlay/ASGlobalOverlay-Prefix.pch";
 				INFOPLIST_FILE = "ASGlobalOverlay/ASGlobalOverlay-Info.plist";
@@ -540,6 +544,7 @@
 			baseConfigurationReference = F1B4A45B612D156C502AD3D1 /* Pods-ASGlobalOverlay_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ASGlobalOverlay/ASGlobalOverlay-Prefix.pch";
 				INFOPLIST_FILE = "ASGlobalOverlay/ASGlobalOverlay-Info.plist";

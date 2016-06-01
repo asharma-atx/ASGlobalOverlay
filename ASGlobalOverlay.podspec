@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "ASGlobalOverlay"
-  s.version          = "1.0.1"
+  s.version          = "1.1.0"
   s.summary          = "A modern pop-over controller thats easy to implement."
   s.description      = <<-DESC
 
@@ -20,8 +20,7 @@ Pod::Spec.new do |s|
 
   s.source_files = 'Pod/Classes/**/*'
   s.public_header_files = 'Pod/Classes/Global\ Overlay/*.h', 'Pod/Classes/User\ Option/*.h'
-  s.resource_bundles = {
-    'ASGlobalOverlay' => ['Pod/Assets/*.png']
-  }
+
+  # s.resource_bundles = { 'ASGlobalOverlay' => ['Pod/Assets/*.png'] }
 
 end

@@ -127,9 +127,27 @@
 
 /**
  *
+ * Shows an alert that is visually similar to an alert-style UIAlertController.
+ *
+ * This helper method provides an easy way present an alert that requires one button and no userAction block.
+ *
+ * If you need multiple buttons or custom userAction blocks, please use showAlertWithTitle:message:userOptions:.
+ *
+ * @param title Nullable. The title of the alert. The title is restricted to a single line. Specifying nil defaults the title to 'Alert'.
+ *
+ * @param message Nullable. A message describing the alert. Messages longer than 8 lines will be truncated.
+ *
+ * @param buttonTitle Nullable. The title of the dismiss button.
+ *
+ */
+
++ (void)showAlertWithTitle:(NSString *)title message:(NSString *)message dismissButtonTitle:(NSString *)buttonTitle;
+
+/**
+ *
  * Sets a timer that will dismiss the alert that is currently showing upon firing.
  *
- * @param delay the amount of time that the alert will be displayed before it is
+ * @param delay the amount of time that the alert will be displayed before it is.
  *
  * @warning If no alert is being shown, this method will do nothing.
  *
@@ -248,6 +266,26 @@
  */
 
 + (void)dismissEverythingImmediately;
+
+// ===========================
+// Automatic Keyboard Handling
+// ===========================
+
+/**
+ *
+ * Resigns the given responder immediately before ASGlobalOverlay shows the next popover (if the given responder isFirstResponder).
+ * After dismissing the popover (or the last popover in a chain), ASGlobalOverlay will make the same responder the first responder again.
+ * This hides / shows the keyboard to prevent the user from providing input while a popover is shown.
+ *
+ * This should be called immediately before a popover is show.
+ *
+ * @important Responder can only be an instance of UITextField, UITextView, or a subclass of one of those.
+ *
+ * @param responder Nonnull. The responder to be managed during the next popover's presentation (or chain of popovers).
+ *
+ */
+
++ (void)manageResponderStateDuringNextPopover:(id)responder;
 
 // ==================
 // Visibility Helpers

@@ -33,36 +33,6 @@
 
 @implementation ASExampleController
 
-
-#pragma mark - Keyboard Handling
-
-/*
- *
- * ASGlobalOverlay will not appear over (or disable) a visible keyboard.
- * It is recommend that you dismiss the keyboard before you show any popover.
- *
- * That said, ASGlobalOverlay does dynamically move around the keyboard well.
- * Toggle the switch in the example app to try out the behavior either way.
- *
- */
-
-- (IBAction)toggleSwitch:(id)sender {
-
-    UISwitch *dismissSwitch = (UISwitch *)sender;
-    _shouldAutoDismissKeyboard = dismissSwitch.isOn;
-}
-
-- (void)dismissKeyboard{
-    
-    if ([_textField isFirstResponder] && _shouldAutoDismissKeyboard) [_textField resignFirstResponder];
-}
-
--(BOOL)textFieldShouldReturn:(UITextField *)textField{
-        
-    [textField resignFirstResponder];
-    return YES;
-}
-
 #pragma mark - Alert View
 
 - (IBAction)showAlertNoMessageOrOptions:(id)sender {
@@ -83,9 +53,7 @@
     
     [self dismissKeyboard];
 
-    ASUserOption *ok = [ASUserOption userOptionWithTitle:@"OK" actionBlock:^{NSLog(@"'OK' pressed");}];
-    
-    [ASGlobalOverlay showAlertWithTitle:@"Robot are Attacking!" message:@"We probably should have treated our computers betters." userOptions:@[ok]];
+    [ASGlobalOverlay showAlertWithTitle:@"Robots are Attacking!" message:@"We probably should have treated our computers betters." dismissButtonTitle:@"OK"];
 }
 
 - (IBAction)showAlertTwoOptionsSmall:(id)sender {
@@ -184,6 +152,31 @@
     [self dismissKeyboard];
 
     [self workingIndicatorThenAlert:nil];
+}
+
+#pragma mark - Keyboard Handling
+
+/*
+ *
+ * ASGlobalOverlay will not appear over (or disable) a visible keyboard.
+ *
+ * That said, ASGlobalOverlay can hide / show the keyboard for you (so that the user doesn't type anything while a pop-over is showing).
+ *
+ * Simply call the helper method shown below immediately before showing a popover.
+ * Pass in UITextField, UITextView, or a subclass of one of those classes.
+ * If it's a firstResponder, ASGlobalOverlay will automatically hide / show the keyboard before / after the popover presented.
+ *
+ */
+
+- (void)dismissKeyboard{
+    
+    [ASGlobalOverlay manageResponderStateDuringNextPopover:_textField];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end
