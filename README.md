@@ -71,7 +71,7 @@ Typical use of `ASGlobalOverlay` looks something like this:
 }
 
 ```
-Check out the `ASGlobalOverlay` header and the `ASUserOption` header for additional info.
+Check out the `ASGlobalOverlay` header and the `ASUserOption` header for additional info and handy helper methods.
 
 Please read the following section for important implementation details.
 
@@ -79,7 +79,7 @@ Please read the following section for important implementation details.
 
 - If you would like to smoothly transition between the visible popover and a new popover, simply call the show method for the new popover. `ASGlobalOverlay` will smoothly transition the first popover out. You can also do this from inside an `actionBlock`.
 
-- ASGlobalOverlay will not appear over (or disable) a keyboard. It is recommended that you dismiss the keyboard before showing something with ASGlobalOverlay. Check out the example app for details.
+- ASGlobalOverlay will not appear over (or disable) a keyboard. However, it can hide / show the keyboard for you (so that the user doesn't type anything while a pop-over is showing). Check out the example app or the `ASGlobalOverlay` header for details.
 
 - ASGlobalOverlay methods that show or dismiss views should only be called on the main thread.
 
@@ -87,15 +87,7 @@ Please read the following section for important implementation details.
 
 ## About
 
-ASGlobalOverlay started off as part of a specific project. It was created to accomplish two goals:
-
-1) Provide a consistent way to show pop-overs to the user.
-
-2) Provide a visually modern alternative to UIAlertController (which offers limited customizability, and [can't be subclassed](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIAlertController_class/index.html#//apple_ref/doc/uid/TP40014538-CH1-SW2)).
- 
-Knowing that it may be useful in other apps, I made it into a CocoaPod.
- 
-1.0.0 is just a first-pass. I have a set of planned features listed below, and I'm interested in getting feedback on what else developers would like to see.
+ASGlobalOverlay provides a consistent way to show pop-overs to the user. Overtime, I plan to make this a highly customizable alternative to UIAlertController.
 
 ## Planned Features
 
