@@ -85,7 +85,7 @@ const static CGFloat kMessageFontSize = 14;
 
 - (void)setupAlertMessageWithMessage:(NSString *)message{
     
-    _containsMessage = message ? YES : NO;
+    _containsMessage = (message);
     if (!_containsMessage) return;
     
     _alertMessageLabel = [[UILabel alloc]init];
