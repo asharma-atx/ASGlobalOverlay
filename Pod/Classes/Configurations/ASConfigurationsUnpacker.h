@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ASConfigurations.h"
 
 @interface ASConfigurationsUnpacker : NSObject
+
++ (instancetype)configurationUnpackerWithConfiguration:(ASConfigurations *)configurations;
 
 @end

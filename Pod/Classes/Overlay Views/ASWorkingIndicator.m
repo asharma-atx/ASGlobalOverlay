@@ -83,7 +83,7 @@ const static CGFloat kDescriptionFontSize = 18.0f;
 - (void)layoutAllSubviews{
     
     if (!_hasDescription) {
-        _activityIndicator.frame = CGRectMake(1.5, 1.5, kDefaultSquareViewDimension, kDefaultSquareViewDimension);
+        _activityIndicator.frame = CGRectMake(1.5f, 0.0f, kDefaultSquareViewDimension, kDefaultSquareViewDimension);
     }
     
     else{
@@ -96,8 +96,8 @@ const static CGFloat kDescriptionFontSize = 18.0f;
                                              descriptionLabelWidth,
                                              kDescriptionLabelHeight);
         
-        _activityIndicator.frame = CGRectMake(kDescriptionLabelSideMargins,
-                                              0,
+        _activityIndicator.frame = CGRectMake(kDescriptionLabelSideMargins + 1.5f,
+                                              0.0f,
                                               descriptionLabelWidth,
                                               kDefaultSquareViewDimension);
     }
