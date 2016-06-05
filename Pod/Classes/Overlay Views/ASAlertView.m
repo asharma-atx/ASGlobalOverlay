@@ -77,7 +77,7 @@ const static CGFloat kMessageFontSize = 14;
     _titleBannerLabel.backgroundColor = [UIColor clearColor];
     _titleBannerLabel.textColor = [UIColor darkGrayColor];
     _titleBannerLabel.text = title ? title : @"Alert";
-    _titleBannerLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:kTitleFontSize];
+    _titleBannerLabel.font = [UIFont fontWithName:@"AvenirNext-Medium" size:kTitleFontSize];
     _titleBannerLabel.textAlignment = NSTextAlignmentCenter;
     
     [self addSubview:_titleBannerLabel];
@@ -92,7 +92,7 @@ const static CGFloat kMessageFontSize = 14;
     _alertMessageLabel.text = message;
     _alertMessageLabel.numberOfLines = 8;
     _alertMessageLabel.textColor = [UIColor darkGrayColor];
-    _alertMessageLabel.font = [UIFont fontWithName:@"Avenir" size:kMessageFontSize];
+    _alertMessageLabel.font = [UIFont fontWithName:@"Avenir Next" size:kMessageFontSize];
     _alertMessageLabel.textAlignment = NSTextAlignmentCenter;
     
     [self addSubview:_alertMessageLabel];
