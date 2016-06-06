@@ -31,19 +31,15 @@ const static CGFloat kTopToTitleMarginSpace = 18;
 const static CGFloat kMessageSideMarginSpace = 15;
 const static CGFloat kMessageTopBottomMarginSpace = 15;
 const static CGFloat kMessageLabelWidth = kAlertViewWidth - kMessageSideMarginSpace * 2;
-const static CGFloat kUserOptionButtonHeight = 40.0f;
-
-// font-related constants
-const static CGFloat kTitleFontSize = 18;
-const static CGFloat kMessageFontSize = 14;
+const static CGFloat kDefaultButtonHeight = 40.0f;
 
 @interface ASAlertView () <ASButtonDismissDelegate>
 
 @property (strong, nonatomic) UILabel *titleBannerLabel;
 @property (strong, nonatomic) UILabel *alertMessageLabel;
 
-@property (strong, nonatomic) NSArray *userOptionsUserActions;
-@property (strong, nonatomic) NSArray *userOptionsButtons;
+@property (strong, nonatomic) NSArray *userOptionUserActions;
+@property (strong, nonatomic) NSArray *userOptionButtons;
 
 @property (nonatomic) BOOL containsMessage;
 @property (nonatomic) BOOL containsAtLeastOneUserOption;
@@ -105,7 +101,7 @@ const static CGFloat kMessageFontSize = 14;
     _containsAtLeastOneUserOption = (options.count > 0);
     if (!_containsAtLeastOneUserOption) return;
 
-    _userOptionsUserActions = options;
+    _userOptionUserActions = options;
     NSMutableArray *mutableButtonsArray = [[NSMutableArray alloc]init];
     
     NSInteger numberAdded = 0;
@@ -121,7 +117,7 @@ const static CGFloat kMessageFontSize = 14;
         numberAdded ++;
     }
     
-    _userOptionsButtons = [NSArray arrayWithArray:mutableButtonsArray];
+    _userOptionButtons = [NSArray arrayWithArray:mutableButtonsArray];
 }
 
 - (void)layoutAllSubviews{
@@ -145,15 +141,15 @@ const static CGFloat kMessageFontSize = 14;
     // users buttons (if any)
     if (_containsAtLeastOneUserOption) {
         
-        CGFloat buttonHeight = MAX(kUserOptionButtonHeight, [self minimumButtonHeight]);
+        CGFloat buttonHeight = MAX(kDefaultButtonHeight, [self minimumButtonHeight]);
         
         CGFloat alertMessageOffset = _containsMessage ? _alertMessageLabel.frame.size.height + kMessageTopBottomMarginSpace : 0.0f;
         CGFloat originY = kTopToTitleMarginSpace + titleBannerHeight + kMessageTopBottomMarginSpace + alertMessageOffset;
 
         if ([self canFitButtonsInSingleRow]) {
             
-            ASButton *buttonOne = (ASButton *)[_userOptionsButtons firstObject];
-            ASButton *buttonTwo = (ASButton *)[_userOptionsButtons lastObject];
+            ASButton *buttonOne = (ASButton *)[_userOptionButtons firstObject];
+            ASButton *buttonTwo = (ASButton *)[_userOptionButtons lastObject];
             buttonOne.frame = CGRectMake(kAlertViewWidth / 2, originY, kAlertViewWidth / 2, buttonHeight);
             buttonTwo.frame = CGRectMake(0, originY, kAlertViewWidth / 2, buttonHeight);
             [buttonTwo makeRightSideBorderHidden:NO];
@@ -163,7 +159,7 @@ const static CGFloat kMessageFontSize = 14;
             
             int buttonIndex = 0;
             
-            for (ASButton *button in _userOptionsButtons) {
+            for (ASButton *button in _userOptionButtons) {
                 
                 CGFloat originYWithOffset = originY + buttonIndex * buttonHeight;
                 
@@ -179,10 +175,10 @@ const static CGFloat kMessageFontSize = 14;
 
 - (BOOL)canFitButtonsInSingleRow{
     
-    if (_userOptionsButtons.count == 2){
+    if (_userOptionButtons.count == 2){
         
-        CGFloat buttonOneWidth = [(ASButton *)[_userOptionsButtons firstObject] widthOfButtonLabel];
-        CGFloat buttonTwoWidth = [(ASButton *)[_userOptionsButtons lastObject] widthOfButtonLabel];
+        CGFloat buttonOneWidth = [(ASButton *)[_userOptionButtons firstObject] widthOfButtonLabel];
+        CGFloat buttonTwoWidth = [(ASButton *)[_userOptionButtons lastObject] widthOfButtonLabel];
         CGFloat maxButtonWidth = kAlertViewWidth / 2 - 30;
         
         if (buttonOneWidth < maxButtonWidth && buttonTwoWidth < maxButtonWidth) { // includes margin space
@@ -198,7 +194,7 @@ const static CGFloat kMessageFontSize = 14;
     
     CGFloat largestMinimumButtonHeight = 0.0f;
     
-    for (ASButton *button in _userOptionsButtons) {
+    for (ASButton *button in _userOptionButtons) {
         
         CGFloat minimumButtonHeight = [button minimumButtonHeight];
         largestMinimumButtonHeight = MAX(minimumButtonHeight, largestMinimumButtonHeight);
@@ -220,7 +216,7 @@ const static CGFloat kMessageFontSize = 14;
     
     [self layoutAllSubviews];
     
-    UIButton *lastButton = [_userOptionsButtons lastObject]; // TODO safety
+    UIButton *lastButton = [_userOptionButtons lastObject]; // TODO safety
     
     CGFloat totalHeight = 0.0f;
     

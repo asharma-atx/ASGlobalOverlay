@@ -65,7 +65,7 @@
     
     if (_configuration.buttonTitleFont) return _configuration.buttonTitleFont;
     
-    return [UIFont fontWithName:@"AvenirNext-Medium" size:14.0f]; // better default TODO
+    return [UIFont fontWithName:@"AvenirNext-Medium" size:14.0f];
 }
 
 - (UIColor *)buttonTitleColorNormal{

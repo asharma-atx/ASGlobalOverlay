@@ -26,14 +26,13 @@
 
 const static CGFloat kSideMarginSpace = 15.0f;
 const static CGFloat kPromptTopBottomMarginSpace = 15.0f;
-const static CGFloat kPromptFontSize = 14.0f;
-const static CGFloat kButtonHeight = 50.0f;
+const static CGFloat kDefaultButtonHeight = 50.0f;
 const static CGFloat kAnimationMarginSpace = 15.0f;
 
 @interface ASSlideUpMenu () <ASButtonDismissDelegate>
 
 @property (strong, nonatomic) UILabel *promptLabel;
-@property (strong, nonatomic) NSArray *userOptionButtons; // refactor TODO see alert view
+@property (strong, nonatomic) NSArray *userOptionButtons;
 
 @property (weak, nonatomic) id<ASSlideUpMenuDismissDelegate> delegate;
 @property (strong, nonatomic) ASConfigurationHandler *configurationHandler;
@@ -104,7 +103,7 @@ const static CGFloat kAnimationMarginSpace = 15.0f;
     CGFloat buttonYOriginOffset = 0.0f;
     if (_promptLabel) buttonYOriginOffset += _promptLabel.frame.size.height + kPromptTopBottomMarginSpace * 2;
     
-    CGFloat buttonHeight = MAX(kButtonHeight, [self minimumButtonHeight]);
+    CGFloat buttonHeight = MAX(kDefaultButtonHeight, [self minimumButtonHeight]);
     
     for (ASButton *alertButton in _userOptionButtons) {
         
@@ -140,7 +139,7 @@ const static CGFloat kAnimationMarginSpace = 15.0f;
         promptLabelAndMarginsHeight = promptLabelHeight + kPromptTopBottomMarginSpace * 2;
     }
     
-    CGFloat heightOfUserOptions = MAX(kButtonHeight, [self minimumButtonHeight]) * _userOptionButtons.count; // refactor -- safey consids.
+    CGFloat heightOfUserOptions = MAX(kDefaultButtonHeight, [self minimumButtonHeight]) * _userOptionButtons.count; // refactor -- safey consids.
     
     return heightOfUserOptions + promptLabelAndMarginsHeight;
 }

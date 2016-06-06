@@ -10,7 +10,7 @@
 // TODO REWRITE DOCS
 // TODO SPELL CHECK
 // TODO Create stock configs
-// TODO 
+// TODO ANALYZE
 
 #import <UIKit/UIKit.h>
 

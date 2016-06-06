@@ -29,7 +29,7 @@ const static CGFloat kDescriptionLabelHeight = 25.0f;
 const static CGFloat kDescriptionLabelSideMargins = 16.0f;
 const static CGFloat kDescriptionLabelBottomMargin = 8.0f;
 
-const static CGFloat kDescriptionFontSize = 18.0f;
+const static CGFloat kSpinnerCenteringOffset = 1.5f; // helps center spinner, since by default the top spinnger notch right-aligns to the frames center.
 
 @interface ASWorkingIndicator ()
 
@@ -91,7 +91,7 @@ const static CGFloat kDescriptionFontSize = 18.0f;
     
     if (!_hasDescription) {
         
-        _activityIndicator.frame = CGRectMake(1.5f, 0.0f, kDefaultSquareViewDimension, kDefaultSquareViewDimension); // TODO document
+        _activityIndicator.frame = CGRectMake(kSpinnerCenteringOffset, 0.0f, kDefaultSquareViewDimension, kDefaultSquareViewDimension);
     }
     
     else{
@@ -104,7 +104,7 @@ const static CGFloat kDescriptionFontSize = 18.0f;
                                              descriptionLabelWidth,
                                              kDescriptionLabelHeight);
         
-        _activityIndicator.frame = CGRectMake(kDescriptionLabelSideMargins + 1.5f,
+        _activityIndicator.frame = CGRectMake(kDescriptionLabelSideMargins + kSpinnerCenteringOffset,
                                               0.0f,
                                               descriptionLabelWidth,
                                               kDefaultSquareViewDimension);

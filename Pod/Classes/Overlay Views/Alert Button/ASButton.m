@@ -46,7 +46,7 @@ const static CGFloat minimumSidePadding = 5.0f;
 
     self = [super init];
     
-    _configurationHandler = configurationHandler; // TODO refacot
+    _configurationHandler = configurationHandler;
     
     _userOption = userAction;
     _delegate = delegate;
