@@ -7,6 +7,7 @@
 //
 
 // TODO #DEPLOY COPYWRIGHT STUFF
+// TODO #DEPLOY CHANGELOG
 // TODO REWRITE DOCS
 // TODO SPELL CHECK
 // TODO Create stock configs
@@ -14,6 +15,19 @@
 // TODO REMOVE PODSPEC PATH FOR CONFIGURE FILE
 
 #import <UIKit/UIKit.h>
+
+// ===============
+// ASConfiguration
+// ===============
+
+/**
+ *
+ * An instance ASConfiguration represents a configuration of ASGlobalOverlay.
+ * 
+ * Once an instance of ASConfiguration is created, make it active by calling +setConfiguration: on ASGlobalOverlay.
+ * Alternively, you can make a given configuation object the current object by calling -makeCurrentConfiguration on it.
+ *
+ */
 
 @interface ASConfiguration : NSObject
 
@@ -126,5 +140,13 @@
  */
 
 + (instancetype)nightTheme;
+
+/**
+ *
+ * Makes the configuration the current configuration. This is the same as manually setting the configuration via [ASGlobalOverlay setConfiguration:yourConfiguration].
+ *
+ */
+
+- (void)makeCurrentConfiguration;
 
 @end

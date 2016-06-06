@@ -92,6 +92,8 @@
 
 - (IBAction)showSlideUpMenuWithDestructiveOption:(id)sender {
     
+    [self dismissKeyboard];
+    
     ASUserOption *delete = [ASUserOption destructiveUserOptionWithTitle:@"Delete" actionBlock:^{NSLog(@"'Delete' pressed");}];
     ASUserOption *cancel = [ASUserOption cancelUserOptionWithTitle:@"Cancel" actionBlock:^{NSLog(@"'Cancel' pressed");}];
     
@@ -167,7 +169,7 @@
     
     else if (segControl.selectedSegmentIndex == 1){
         
-        [ASGlobalOverlay setConfiguration:[ASConfiguration nightTheme]];
+        [[ASConfiguration nightTheme] makeCurrentConfiguration];
     }
     
     else if (segControl.selectedSegmentIndex == 2){
@@ -175,7 +177,7 @@
         ASConfiguration *configuration = [ASConfiguration configurationWithForgroundColor:[UIColor whiteColor]
                                                                           backgroundColor:[UIColor colorWithRed:0.173 green:0.404 blue:0.784 alpha:1.00]];
         
-        [ASGlobalOverlay setConfiguration:configuration];
+        [configuration makeCurrentConfiguration];
     }
 }
 

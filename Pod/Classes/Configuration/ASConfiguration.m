@@ -7,6 +7,7 @@
 //
 
 #import "ASConfiguration.h"
+#import "ASGlobalOverlay.h"
 
 @implementation ASConfiguration
 
@@ -34,6 +35,11 @@
     configuration.titleColor = [UIColor colorWithRed:0.667 green:0.706 blue:0.800 alpha:1.00];
     
     return configuration;
+}
+
+- (void)makeCurrentConfiguration{
+    
+    [ASGlobalOverlay setConfiguration:self];
 }
 
 @end
