@@ -24,10 +24,12 @@
 #import "ASWorkingIndicator.h"
 
 const static CGFloat kDefaultSquareViewDimension = 70.0f;
-const static CGFloat kMaxDescriptionLabelWidth = 300.0f;
-const static CGFloat kDescriptionLabelHeight = 25.0f;
+
 const static CGFloat kDescriptionLabelSideMargins = 16.0f;
 const static CGFloat kDescriptionLabelBottomMargin = 8.0f;
+
+const static CGFloat kMaxDescriptionLabelWidth = 300.0f;
+const static CGFloat kMaxDescriptionLabelHeight = 100.0f;
 
 const static CGFloat kSpinnerCenteringOffset = 1.5f; // helps center spinner, since by default the top spinnger notch right-aligns to the frames center.
 
@@ -91,13 +93,14 @@ const static CGFloat kSpinnerCenteringOffset = 1.5f; // helps center spinner, si
     
     else{
         
-        CGFloat descriptionLabelWidth = [_descriptionLabel sizeThatFits:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)].width;
-        if (descriptionLabelWidth > kMaxDescriptionLabelWidth) descriptionLabelWidth = kMaxDescriptionLabelWidth;
+        CGSize labelSize = [_descriptionLabel sizeThatFits:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)];
+        CGFloat descriptionLabelWidth = MIN(labelSize.width, kMaxDescriptionLabelWidth);
+        CGFloat descriptionLabelHeight = MIN(labelSize.height, kMaxDescriptionLabelHeight);
         
         _descriptionLabel.frame = CGRectMake(kDescriptionLabelSideMargins,
                                              kDefaultSquareViewDimension,
-                                             descriptionLabelWidth, // TODO fix layout stuff
-                                             kDescriptionLabelHeight);
+                                             descriptionLabelWidth,
+                                             descriptionLabelHeight);
         
         _activityIndicator.frame = CGRectMake(kDescriptionLabelSideMargins + kSpinnerCenteringOffset,
                                               0.0f,
@@ -123,7 +126,7 @@ const static CGFloat kSpinnerCenteringOffset = 1.5f; // helps center spinner, si
     else{
         
         CGFloat selfWidth = _descriptionLabel.frame.size.width + kDescriptionLabelSideMargins * 2;
-        CGFloat selfHeight = kDefaultSquareViewDimension + kDescriptionLabelHeight + kDescriptionLabelBottomMargin;
+        CGFloat selfHeight = kDefaultSquareViewDimension + _descriptionLabel.frame.size.height + kDescriptionLabelBottomMargin;
         
         self.frame = CGRectMake((frame.size.width - selfWidth) / 2,
                                 (frame.size.height - selfHeight) / 2,
