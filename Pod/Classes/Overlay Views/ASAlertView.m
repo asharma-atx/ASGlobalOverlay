@@ -216,11 +216,11 @@ const static CGFloat kDefaultButtonHeight = 40.0f;
     
     [self layoutAllSubviews];
     
-    UIButton *lastButton = [_userOptionButtons lastObject]; // TODO safety
+    UIButton *lastButton = [_userOptionButtons lastObject];
     
     CGFloat totalHeight = 0.0f;
     
-    if (_containsAtLeastOneUserOption) totalHeight = lastButton.frame.origin.y + lastButton.frame.size.height;
+    if (_containsAtLeastOneUserOption && lastButton) totalHeight = lastButton.frame.origin.y + lastButton.frame.size.height;
     else if (_containsMessage) totalHeight = _alertMessageLabel.frame.origin.y + _alertMessageLabel.frame.size.height + kMessageTopBottomMarginSpace;
     else totalHeight = _titleBannerLabel.frame.size.height + kTopToTitleMarginSpace * 2;
     

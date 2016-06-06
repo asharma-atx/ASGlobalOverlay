@@ -35,6 +35,6 @@
 @interface ASAlertView : UIView
 
 - (instancetype)initWithTitle:(NSString *)title message:(NSString *)message userActions:(NSArray *)userActions configurationHandler:(ASConfigurationHandler *)configurationHandler delegate:(id<ASAlertViewDismissalDelegate>)delegate;
-- (void)layoutAndCenterInFrame:(CGRect)frame; // should be a protocol #TODO
+- (void)layoutAndCenterInFrame:(CGRect)frame;
 
 @end
