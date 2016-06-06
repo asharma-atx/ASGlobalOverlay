@@ -24,8 +24,6 @@
 #import "ASExampleController.h"
 #import <ASGlobalOverlay/ASGlobalOverlay.h>
 
-// TODO Clean up example storyboard
-
 @interface ASExampleController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
@@ -127,7 +125,7 @@
     [self performSelector:@selector(showPaymentSuccessAlert) withObject:nil afterDelay:2.0f];
 }
 
--(void)showPaymentSuccessAlert{
+- (void)showPaymentSuccessAlert{
     
     [self dismissKeyboard];
 
@@ -149,11 +147,36 @@
     [ASGlobalOverlay showSlideUpMenuWithPrompt:@"For the purpose of this demo, select 'Delete.'" userOptions:@[delete, cancel]];
 }
 
--(void)showWorkingIndicatorThenSuccessIndicator{
+- (void)showWorkingIndicatorThenSuccessIndicator{
     
     [self dismissKeyboard];
 
     [self workingIndicatorThenAlert:nil];
+}
+
+#pragma mark - Configuration Management
+
+- (IBAction)segmentValueChanged:(id)sender {
+    
+    UISegmentedControl *segControl = (UISegmentedControl *)sender;
+    
+    if (segControl.selectedSegmentIndex == 0) {
+        
+        [ASGlobalOverlay setConfiguration:nil];
+    }
+    
+    else if (segControl.selectedSegmentIndex == 1){
+        
+        [ASGlobalOverlay setConfiguration:[ASConfiguration nightTheme]];
+    }
+    
+    else if (segControl.selectedSegmentIndex == 2){
+        
+        ASConfiguration *configuration = [ASConfiguration configurationWithForgroundColor:[UIColor whiteColor]
+                                                                          backgroundColor:[UIColor colorWithRed:0.173 green:0.404 blue:0.784 alpha:1.00]];
+        
+        [ASGlobalOverlay setConfiguration:configuration];
+    }
 }
 
 #pragma mark - Keyboard Handling
