@@ -23,8 +23,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ASUserOption.h"
-#import "ASConfigurations.h" // TODO REMOVE THESE ALL CLASSES
-#import "ASConfigurationsUnpacker.h"
+#import "ASConfigurationHandler.h"
 
 const static NSInteger kDoNotRemoveViewTag = 100001;
 
@@ -36,7 +35,7 @@ const static NSInteger kDoNotRemoveViewTag = 100001;
 
 @interface ASButton : UIView
 
-- (instancetype)initButtonViewWithUserAction:(ASUserOption *)userAction configuration:(ASConfigurationsUnpacker *)configurations delegate:(id<ASButtonDismissDelegate>)delegate;
+- (instancetype)initButtonViewWithUserAction:(ASUserOption *)userAction configurationHandler:(ASConfigurationHandler *)configurationHandler delegate:(id<ASButtonDismissDelegate>)delegate;
 - (void)makeRightSideBorderHidden:(BOOL)hidden;
 
 - (CGFloat)widthOfButtonLabel;

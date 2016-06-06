@@ -23,7 +23,6 @@
 
 #import "ASSlideUpMenu.h"
 #import "ASButton.h"
-#import "ASConfigurationsUnpacker.h"
 
 const static CGFloat kSideMarginSpace = 15.0f;
 const static CGFloat kPromptTopBottomMarginSpace = 15.0f;
@@ -37,19 +36,19 @@ const static CGFloat kAnimationMarginSpace = 15.0f;
 @property (strong, nonatomic) NSArray *userOptionButtons; // refactor TODO see alert view
 
 @property (weak, nonatomic) id<ASSlideUpMenuDismissDelegate> delegate;
-@property (strong, nonatomic) ASConfigurationsUnpacker *unpacker;
+@property (strong, nonatomic) ASConfigurationHandler *configurationHandler;
 
 @end
 
 @implementation ASSlideUpMenu
 
-- (instancetype)initWithPrompt:(NSString *)prompt userActions:(NSArray *)userActions configurations:(ASConfigurations *)configurations delegate:(id<ASSlideUpMenuDismissDelegate>)delegate{
+- (instancetype)initWithPrompt:(NSString *)prompt userActions:(NSArray *)userActions configurationHandler:(ASConfigurationHandler *)configurationHandler delegate:(id<ASSlideUpMenuDismissDelegate>)delegate{
 
     self = [super init];
     
-    _unpacker = [ASConfigurationsUnpacker configurationUnpackerWithConfiguration:configurations];
+    _configurationHandler = configurationHandler;
     
-    self.backgroundColor = [_unpacker backgroundColor];
+    self.backgroundColor = [_configurationHandler backgroundColor];
     self.delegate = delegate;
     
     [self addPromptLabelToView:prompt];
@@ -66,8 +65,8 @@ const static CGFloat kAnimationMarginSpace = 15.0f;
     _promptLabel.text = prompt;
     _promptLabel.textAlignment = NSTextAlignmentCenter;
     _promptLabel.numberOfLines = 0.0f;
-    _promptLabel.font = [_unpacker bodyFont];
-    _promptLabel.textColor = [_unpacker bodyColor];
+    _promptLabel.font = [_configurationHandler bodyFont];
+    _promptLabel.textColor = [_configurationHandler bodyColor];
     
     [self addSubview:_promptLabel];
 }
@@ -82,7 +81,7 @@ const static CGFloat kAnimationMarginSpace = 15.0f;
         
         if (numberAdded == 8) break; // maxes the number of buttons to 8
         
-        ASButton *newButton = [[ASButton alloc] initButtonViewWithUserAction:userOption configuration:_unpacker delegate:self];
+        ASButton *newButton = [[ASButton alloc] initButtonViewWithUserAction:userOption configurationHandler:_configurationHandler delegate:self];
         [self addSubview:newButton];
         [mutableButtonArray addObject:newButton];
         

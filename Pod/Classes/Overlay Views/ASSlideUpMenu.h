@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
-#import "ASConfigurations.h"
+#import "ASConfigurationHandler.h"
 
 @class ASSlideUpMenu;
 
@@ -34,7 +34,7 @@
 
 @interface ASSlideUpMenu : UIView
 
-- (instancetype)initWithPrompt:(NSString *)prompt userActions:(NSArray *)userActions configurations:(ASConfigurations *)configurations delegate:(id<ASSlideUpMenuDismissDelegate>)delegate;
+- (instancetype)initWithPrompt:(NSString *)prompt userActions:(NSArray *)userActions configurationHandler:(ASConfigurationHandler *)configurationHandler delegate:(id<ASSlideUpMenuDismissDelegate>)delegate;
 - (void)layoutAndPositionInFrame:(CGRect)frame;
 - (CGFloat)distanceToOffsetYForAnimation;
 

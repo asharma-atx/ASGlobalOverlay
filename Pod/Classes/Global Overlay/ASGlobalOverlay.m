@@ -266,7 +266,7 @@ const static CGFloat kTintOverlayAlpha = 0.6;
     
     [self incrementShowingCountAndPrepareContainerOverlayForNewSubview];
     
-    ASConfigurations *configuration = [ASConfigurations new];
+    ASConfiguration *configuration = [ASConfiguration new];
     configuration.backgroundColor = [UIColor colorWithRed:0.173 green:0.404 blue:0.784 alpha:1.00];
     configuration.titleColor = [UIColor whiteColor];
     configuration.bodyColor = [UIColor whiteColor];
@@ -274,8 +274,9 @@ const static CGFloat kTintOverlayAlpha = 0.6;
     configuration.buttonTitleColorCancel = [UIColor whiteColor];
   //  configuration.buttonTitleFont = [UIFont systemFontOfSize:80.0f];
     configuration.seporatorLineColor = [UIColor whiteColor];
+    ASConfigurationHandler *handler = [ASConfigurationHandler configurationHandlerWithConfiguration:configuration];
     
-    _showingAlertView = [[ASAlertView alloc]initWithTitle:title message:message userActions:userOptions configuration:configuration delegate:self];
+    _showingAlertView = [[ASAlertView alloc]initWithTitle:title message:message userActions:userOptions configurationHandler:handler delegate:self];
     
     [_showingAlertView layoutAndCenterInFrame:_overlayContainer.frame];
     [_overlayContainer addSubview:_showingAlertView];
@@ -366,7 +367,7 @@ const static CGFloat kTintOverlayAlpha = 0.6;
     
     if (!userOptions || userOptions.count == 0) return;
     
-    ASConfigurations *configuration = [ASConfigurations new];
+    ASConfiguration *configuration = [ASConfiguration new];
     configuration.backgroundColor = [UIColor colorWithRed:0.173 green:0.404 blue:0.784 alpha:1.00];
     configuration.titleColor = [UIColor whiteColor];
     configuration.bodyColor = [UIColor whiteColor];
@@ -375,8 +376,9 @@ const static CGFloat kTintOverlayAlpha = 0.6;
 
     configuration.buttonTitleColorCancel = [UIColor whiteColor];
     configuration.seporatorLineColor = [UIColor whiteColor]; // TODO remove this, add actual interface
+    ASConfigurationHandler *handler = [ASConfigurationHandler configurationHandlerWithConfiguration:configuration];
     
-    _showingSlideUpMenu = [[ASSlideUpMenu alloc]initWithPrompt:prompt userActions:userOptions configurations:configuration delegate:self];
+    _showingSlideUpMenu = [[ASSlideUpMenu alloc]initWithPrompt:prompt userActions:userOptions configurationHandler:handler delegate:self];
     
     [_showingSlideUpMenu layoutAndPositionInFrame:_overlayContainer.frame];
     [_overlayContainer addSubview:_showingSlideUpMenu];
@@ -448,7 +450,7 @@ const static CGFloat kTintOverlayAlpha = 0.6;
     
     [self incrementShowingCountAndPrepareContainerOverlayForNewSubview];
     
-    ASConfigurations *configuration = [ASConfigurations new];
+    ASConfiguration *configuration = [ASConfiguration new];
     configuration.backgroundColor = [UIColor colorWithRed:0.173 green:0.404 blue:0.784 alpha:1.00];
     configuration.titleColor = [UIColor whiteColor];
     configuration.bodyColor = [UIColor whiteColor];
@@ -457,8 +459,8 @@ const static CGFloat kTintOverlayAlpha = 0.6;
     configuration.seporatorLineColor = [UIColor whiteColor];
     configuration.buttonTitleFont = [UIFont systemFontOfSize:80.0f];
 
-    ASConfigurationsUnpacker *unpacker = [ASConfigurationsUnpacker configurationUnpackerWithConfiguration:configuration];
-    _showingWorkingIndicator = [[ASWorkingIndicator alloc]initWithDescription:description configs:unpacker];
+    ASConfigurationHandler *unpacker = [ASConfigurationHandler configurationHandlerWithConfiguration:configuration];
+    _showingWorkingIndicator = [[ASWorkingIndicator alloc]initWithDescription:description configurationHandler:unpacker];
     
     [_showingWorkingIndicator layoutAndCenterInFrame:_overlayContainer.frame];
     [_overlayContainer addSubview:_showingWorkingIndicator];

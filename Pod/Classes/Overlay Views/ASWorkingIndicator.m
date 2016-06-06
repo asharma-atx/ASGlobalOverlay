@@ -36,19 +36,19 @@ const static CGFloat kDescriptionFontSize = 18.0f;
 @property (nonatomic) BOOL hasDescription;
 @property (strong, nonatomic) UILabel *descriptionLabel;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
-@property (strong, nonatomic) ASConfigurationsUnpacker *unpacker;
+@property (strong, nonatomic) ASConfigurationHandler *configurationHandler;
 
 @end
 
 @implementation ASWorkingIndicator
 
-- (instancetype)initWithDescription:(NSString *)description configs:(ASConfigurationsUnpacker *)unpacker{
+- (instancetype)initWithDescription:(NSString *)description configurationHandler:(ASConfigurationHandler *)configurationHandler{
 
     self = [super init];
     
-    self.unpacker = unpacker;
+    self.configurationHandler = configurationHandler;
     
-    self.backgroundColor = [_unpacker backgroundColor];
+    self.backgroundColor = [_configurationHandler backgroundColor];
     self.layer.cornerRadius = 5.0f;
     self.clipsToBounds = YES;
     
@@ -62,7 +62,7 @@ const static CGFloat kDescriptionFontSize = 18.0f;
 - (void)setupActivityIndicatorView{
     
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    _activityIndicator.color = [_unpacker workingSpinnerColor];
+    _activityIndicator.color = [_configurationHandler workingSpinnerColor];
     
     [self addSubview:_activityIndicator];
     [_activityIndicator startAnimating];
@@ -76,9 +76,9 @@ const static CGFloat kDescriptionFontSize = 18.0f;
     
     _descriptionLabel = [[UILabel alloc] init];
     _descriptionLabel.text = description;
-    _descriptionLabel.backgroundColor = [_unpacker backgroundColor];
-    _descriptionLabel.textColor = [_unpacker titleColor];
-    _descriptionLabel.font = [_unpacker titleFont]; // Reorganize
+    _descriptionLabel.backgroundColor = [_configurationHandler backgroundColor];
+    _descriptionLabel.textColor = [_configurationHandler titleColor];
+    _descriptionLabel.font = [_configurationHandler titleFont]; // Reorganize
     
     NSLog(@"%@",_descriptionLabel.font.fontName);
     

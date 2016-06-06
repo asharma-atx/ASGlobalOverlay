@@ -1,5 +1,5 @@
 //
-//  ASConfigurationsUnpacker.h
+//  ASConfigurationHandler.h
 //  Pods
 //
 //  Created by Amit Sharma on 6/4/16.
@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ASConfigurations.h"
+#import "ASConfiguration.h"
 
-@interface ASConfigurationsUnpacker : NSObject
+@interface ASConfigurationHandler : NSObject
 
-+ (instancetype)configurationUnpackerWithConfiguration:(ASConfigurations *)configurations;
++ (instancetype)configurationHandlerWithConfiguration:(ASConfiguration *)configuration;
 
 #pragma mark - Title Font
 

@@ -24,7 +24,6 @@
 #import "ASAlertView.h"
 #import "ASUserOption.h"
 #import "ASButton.h"
-#import "ASConfigurationsUnpacker.h"
 
 // sizing-related constants
 const static CGFloat kAlertViewWidth = 280;
@@ -50,20 +49,20 @@ const static CGFloat kMessageFontSize = 14;
 @property (nonatomic) BOOL containsAtLeastOneUserOption;
 
 @property (weak, nonatomic) id<ASAlertViewDismissalDelegate> delegate;
-@property (strong, nonatomic) ASConfigurationsUnpacker *configurationUnpacker;
+@property (strong, nonatomic) ASConfigurationHandler *configurationHandler;
 
 @end
 
 @implementation ASAlertView
 
-- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message userActions:(NSArray *)userActions configuration:(ASConfigurations *)configuration delegate:(id<ASAlertViewDismissalDelegate>)delegate{
+- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message userActions:(NSArray *)userActions configurationHandler:(ASConfigurationHandler *)configurationHandler delegate:(id<ASAlertViewDismissalDelegate>)delegate{
 
     self = [super init];
     
-    self.configurationUnpacker = [ASConfigurationsUnpacker configurationUnpackerWithConfiguration:configuration];
+    self.configurationHandler = configurationHandler;
     self.delegate = delegate;
     
-    self.backgroundColor = [_configurationUnpacker backgroundColor];
+    self.backgroundColor = [_configurationHandler backgroundColor];
     self.layer.cornerRadius = 5.0f;
     self.clipsToBounds = YES;
     
@@ -79,8 +78,8 @@ const static CGFloat kMessageFontSize = 14;
     _titleBannerLabel = [[UILabel alloc] init];
     _titleBannerLabel.backgroundColor = [UIColor clearColor];
     _titleBannerLabel.text = title ? title : @"Alert";
-    _titleBannerLabel.font = [_configurationUnpacker titleFont];
-    _titleBannerLabel.textColor = [_configurationUnpacker titleColor];
+    _titleBannerLabel.font = [_configurationHandler titleFont];
+    _titleBannerLabel.textColor = [_configurationHandler titleColor];
     _titleBannerLabel.textAlignment = NSTextAlignmentCenter;
     
     [self addSubview:_titleBannerLabel];
@@ -94,8 +93,8 @@ const static CGFloat kMessageFontSize = 14;
     _alertMessageLabel = [[UILabel alloc]init];
     _alertMessageLabel.text = message;
     _alertMessageLabel.numberOfLines = 8;
-    _alertMessageLabel.font = [_configurationUnpacker bodyFont];
-    _alertMessageLabel.textColor = [_configurationUnpacker bodyColor];
+    _alertMessageLabel.font = [_configurationHandler bodyFont];
+    _alertMessageLabel.textColor = [_configurationHandler bodyColor];
     _alertMessageLabel.textAlignment = NSTextAlignmentCenter;
     
     [self addSubview:_alertMessageLabel];
@@ -115,7 +114,7 @@ const static CGFloat kMessageFontSize = 14;
         
         if (numberAdded == 8) break; // maxes the number of buttons to 8
         
-        ASButton *newButton = [[ASButton alloc] initButtonViewWithUserAction:userOption configuration:_configurationUnpacker delegate:self];
+        ASButton *newButton = [[ASButton alloc] initButtonViewWithUserAction:userOption configurationHandler:_configurationHandler delegate:self];
         [mutableButtonsArray addObject:newButton];
         [self addSubview:newButton];
         

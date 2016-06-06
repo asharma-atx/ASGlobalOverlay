@@ -1,5 +1,5 @@
 //
-//  ASConfigurations.h
+//  ASConfiguration.h
 //  Pods
 //
 //  Created by Amit Sharma on 6/4/16.
@@ -7,13 +7,14 @@
 //
 
 // TODO #DEPLOY COPYWRIGHT STUFF
-// TODO REFACTOR CLASS NAMES
 // TODO REWRITE DOCS
+// TODO SPELL CHECK
+// TODO Create stock configs
 // TODO 
 
 #import <UIKit/UIKit.h>
 
-@interface ASConfigurations : NSObject
+@interface ASConfiguration : NSObject
 
 /*
  *
