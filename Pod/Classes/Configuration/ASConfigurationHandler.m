@@ -30,7 +30,7 @@
 #pragma mark - Title Font
 
 - (UIFont *)titleFont{
-    
+            
     if (_configuration.titleFont) return _configuration.titleFont;
     
     return [UIFont fontWithName:@"AvenirNext-Medium" size:18.0f];

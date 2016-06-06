@@ -52,7 +52,7 @@
  *
  */
 
-@property (copy, nonatomic) UIColor *bodyFont;
+@property (copy, nonatomic) UIFont *bodyFont;
 
 /**
  *
