@@ -95,7 +95,7 @@
     
     if (_configuration.workingSpinnerColor) return _configuration.workingSpinnerColor;
     
-    return nil;
+    return [UIColor darkGrayColor];
 }
 
 #pragma mark - General

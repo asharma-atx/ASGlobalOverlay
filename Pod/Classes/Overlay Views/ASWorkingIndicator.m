@@ -78,11 +78,7 @@ const static CGFloat kSpinnerCenteringOffset = 1.5f; // helps center spinner, si
     _descriptionLabel.text = description;
     _descriptionLabel.backgroundColor = [_configurationHandler backgroundColor];
     _descriptionLabel.textColor = [_configurationHandler titleColor];
-    _descriptionLabel.font = [_configurationHandler titleFont]; // Reorganize
-    
-    NSLog(@"%@",_descriptionLabel.font.fontName);
-    
-    
+    _descriptionLabel.font = [_configurationHandler titleFont];
     _descriptionLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_descriptionLabel];
 }
@@ -101,7 +97,7 @@ const static CGFloat kSpinnerCenteringOffset = 1.5f; // helps center spinner, si
         
         _descriptionLabel.frame = CGRectMake(kDescriptionLabelSideMargins,
                                              kDefaultSquareViewDimension,
-                                             descriptionLabelWidth,
+                                             descriptionLabelWidth, // TODO fix layout stuff
                                              kDescriptionLabelHeight);
         
         _activityIndicator.frame = CGRectMake(kDescriptionLabelSideMargins + kSpinnerCenteringOffset,

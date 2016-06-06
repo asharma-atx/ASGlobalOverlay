@@ -24,6 +24,7 @@
 #import <UIKit/UIKit.h>
 #import "ASGlobalOverlay.h"
 #import "ASUserOption.h"
+#import "ASConfiguration.h"
 
 // ================
 // ASGlobalOverlay
@@ -285,6 +286,18 @@
  */
 
 + (void)manageResponderStateDuringNextPopover:(id)responder;
+
+// =============
+// Configuration
+// =============
+
+/**
+ *
+ * Docs... TODO
+ *
+ */
+
++ (void)setConfiguration:(ASConfiguration *)configuration;
 
 // ==================
 // Visibility Helpers

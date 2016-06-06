@@ -11,6 +11,7 @@
 // TODO SPELL CHECK
 // TODO Create stock configs
 // TODO ANALYZE
+// TODO REMOVE PODSPEC PATH FOR CONFIGURE FILE
 
 #import <UIKit/UIKit.h>
 
