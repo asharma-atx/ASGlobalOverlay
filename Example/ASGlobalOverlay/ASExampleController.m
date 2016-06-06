@@ -24,6 +24,8 @@
 #import "ASExampleController.h"
 #import <ASGlobalOverlay/ASGlobalOverlay.h>
 
+// TODO Clean up example storyboard
+
 @interface ASExampleController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;

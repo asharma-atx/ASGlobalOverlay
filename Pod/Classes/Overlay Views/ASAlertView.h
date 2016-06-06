@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import "ASConfigurationHandler.h"
 
 @class ASAlertView;
 
@@ -33,7 +34,7 @@
 
 @interface ASAlertView : UIView
 
-- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message userActions:(NSArray *)userActions delegate:(id<ASAlertViewDismissalDelegate>)delegate;
+- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message userActions:(NSArray *)userActions configurationHandler:(ASConfigurationHandler *)configurationHandler delegate:(id<ASAlertViewDismissalDelegate>)delegate;
 - (void)layoutAndCenterInFrame:(CGRect)frame;
 
 @end

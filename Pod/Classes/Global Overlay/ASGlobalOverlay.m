@@ -48,6 +48,8 @@ const static CGFloat kTintOverlayAlpha = 0.6;
 @property (nonatomic) BOOL responderResignedAutomatically;
 @property (weak, nonatomic) id managedResponder;
 
+@property (strong, nonatomic) ASConfigurationHandler *configurationHandler;
+
 @end
 
 @implementation ASGlobalOverlay
@@ -266,7 +268,11 @@ const static CGFloat kTintOverlayAlpha = 0.6;
     
     [self incrementShowingCountAndPrepareContainerOverlayForNewSubview];
     
-    _showingAlertView = [[ASAlertView alloc]initWithTitle:title message:message userActions:userOptions delegate:self];
+    _showingAlertView = [[ASAlertView alloc]initWithTitle:title
+                                                  message:message
+                                              userActions:userOptions
+                                     configurationHandler:self.configurationHandler
+                                                 delegate:self];
     
     [_showingAlertView layoutAndCenterInFrame:_overlayContainer.frame];
     [_overlayContainer addSubview:_showingAlertView];
@@ -357,7 +363,10 @@ const static CGFloat kTintOverlayAlpha = 0.6;
     
     if (!userOptions || userOptions.count == 0) return;
     
-    _showingSlideUpMenu = [[ASSlideUpMenu alloc]initWithPrompt:prompt userActions:userOptions delegate:self];
+    _showingSlideUpMenu = [[ASSlideUpMenu alloc]initWithPrompt:prompt
+                                                   userActions:userOptions
+                                        configurationHandler:self.configurationHandler
+                                                      delegate:self];
     
     [_showingSlideUpMenu layoutAndPositionInFrame:_overlayContainer.frame];
     [_overlayContainer addSubview:_showingSlideUpMenu];
@@ -429,7 +438,7 @@ const static CGFloat kTintOverlayAlpha = 0.6;
     
     [self incrementShowingCountAndPrepareContainerOverlayForNewSubview];
     
-    _showingWorkingIndicator = [[ASWorkingIndicator alloc]initWithDescription:description];
+    _showingWorkingIndicator = [[ASWorkingIndicator alloc]initWithDescription:description configurationHandler:self.configurationHandler];
     
     [_showingWorkingIndicator layoutAndCenterInFrame:_overlayContainer.frame];
     [_overlayContainer addSubview:_showingWorkingIndicator];
@@ -645,6 +654,29 @@ const static CGFloat kTintOverlayAlpha = 0.6;
     if (_showingAlertView) [_showingAlertView layoutAndCenterInFrame:_overlayContainer.frame];
     if (_showingSlideUpMenu) [_showingSlideUpMenu layoutAndPositionInFrame:_overlayContainer.frame];
     if (_showingWorkingIndicator) [_showingWorkingIndicator layoutAndCenterInFrame:_overlayContainer.frame];
+}
+
+#pragma mark - Configuration
+
++ (void)setConfiguration:(ASConfiguration *)configuration{
+    
+    if (!configuration || [configuration isMemberOfClass:[ASConfiguration class]]){
+        
+        [ASGlobalOverlay sharedOverlay].configurationHandler = nil;
+        return;
+    }
+    
+    [ASGlobalOverlay sharedOverlay].configurationHandler = [ASConfigurationHandler configurationHandlerWithConfiguration:configuration];
+}
+
+- (ASConfigurationHandler *)configurationHandler{
+    
+    if (!_configurationHandler) {
+        
+        _configurationHandler = [ASConfigurationHandler configurationHandlerWithConfiguration:nil];
+    }
+    
+    return _configurationHandler;
 }
 
 #pragma mark - Visibility Helpers

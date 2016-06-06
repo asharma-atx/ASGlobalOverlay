@@ -21,10 +21,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-
 #import <UIKit/UIKit.h>
 #import "ASGlobalOverlay.h"
 #import "ASUserOption.h"
+#import "ASConfiguration.h"
 
 // ================
 // ASGlobalOverlay
@@ -286,6 +286,18 @@
  */
 
 + (void)manageResponderStateDuringNextPopover:(id)responder;
+
+// =============
+// Configuration
+// =============
+
+/**
+ *
+ * Docs... TODO
+ *
+ */
+
++ (void)setConfiguration:(ASConfiguration *)configuration;
 
 // ==================
 // Visibility Helpers

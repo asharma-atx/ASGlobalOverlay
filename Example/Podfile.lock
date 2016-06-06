@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  ASGlobalOverlay: c801780d52282a0419e61b394165e8e3ae483f02
+  ASGlobalOverlay: 9bc251729f893cff3e41dcfd5d2248ecf84c9b87
 
 PODFILE CHECKSUM: 3651ae339907facb0fc403dbd06fabe6ad2a22eb
 

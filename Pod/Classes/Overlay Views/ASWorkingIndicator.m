@@ -29,23 +29,26 @@ const static CGFloat kDescriptionLabelHeight = 25.0f;
 const static CGFloat kDescriptionLabelSideMargins = 16.0f;
 const static CGFloat kDescriptionLabelBottomMargin = 8.0f;
 
-const static CGFloat kDescriptionFontSize = 18.0f;
+const static CGFloat kSpinnerCenteringOffset = 1.5f; // helps center spinner, since by default the top spinnger notch right-aligns to the frames center.
 
 @interface ASWorkingIndicator ()
 
 @property (nonatomic) BOOL hasDescription;
 @property (strong, nonatomic) UILabel *descriptionLabel;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) ASConfigurationHandler *configurationHandler;
 
 @end
 
 @implementation ASWorkingIndicator
 
-- (instancetype)initWithDescription:(NSString *)description{
-    
+- (instancetype)initWithDescription:(NSString *)description configurationHandler:(ASConfigurationHandler *)configurationHandler{
+
     self = [super init];
     
-    self.backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0];
+    self.configurationHandler = configurationHandler;
+    
+    self.backgroundColor = [_configurationHandler backgroundColor];
     self.layer.cornerRadius = 5.0f;
     self.clipsToBounds = YES;
     
@@ -59,7 +62,7 @@ const static CGFloat kDescriptionFontSize = 18.0f;
 - (void)setupActivityIndicatorView{
     
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    _activityIndicator.color = [UIColor darkGrayColor];
+    _activityIndicator.color = [_configurationHandler workingSpinnerColor];
     
     [self addSubview:_activityIndicator];
     [_activityIndicator startAnimating];
@@ -67,15 +70,14 @@ const static CGFloat kDescriptionFontSize = 18.0f;
 
 - (void)setupDescriptionLabelWithDescription:(NSString *)description{
     
-    if (description) _hasDescription = YES;
-    else _hasDescription = NO;
+    _hasDescription = (description);
     if (!_hasDescription) return;
     
     _descriptionLabel = [[UILabel alloc] init];
     _descriptionLabel.text = description;
-    _descriptionLabel.backgroundColor = [UIColor clearColor];
-    _descriptionLabel.textColor = [UIColor darkGrayColor];
-    _descriptionLabel.font = [UIFont fontWithName:@"AvenirNext-Medium" size:kDescriptionFontSize];
+    _descriptionLabel.backgroundColor = [_configurationHandler backgroundColor];
+    _descriptionLabel.textColor = [_configurationHandler titleColor];
+    _descriptionLabel.font = [_configurationHandler titleFont];
     _descriptionLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_descriptionLabel];
 }
@@ -83,7 +85,8 @@ const static CGFloat kDescriptionFontSize = 18.0f;
 - (void)layoutAllSubviews{
     
     if (!_hasDescription) {
-        _activityIndicator.frame = CGRectMake(1.5, 1.5, kDefaultSquareViewDimension, kDefaultSquareViewDimension);
+        
+        _activityIndicator.frame = CGRectMake(kSpinnerCenteringOffset, 0.0f, kDefaultSquareViewDimension, kDefaultSquareViewDimension);
     }
     
     else{
@@ -93,11 +96,11 @@ const static CGFloat kDescriptionFontSize = 18.0f;
         
         _descriptionLabel.frame = CGRectMake(kDescriptionLabelSideMargins,
                                              kDefaultSquareViewDimension,
-                                             descriptionLabelWidth,
+                                             descriptionLabelWidth, // TODO fix layout stuff
                                              kDescriptionLabelHeight);
         
-        _activityIndicator.frame = CGRectMake(kDescriptionLabelSideMargins,
-                                              0,
+        _activityIndicator.frame = CGRectMake(kDescriptionLabelSideMargins + kSpinnerCenteringOffset,
+                                              0.0f,
                                               descriptionLabelWidth,
                                               kDefaultSquareViewDimension);
     }
