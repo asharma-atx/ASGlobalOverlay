@@ -293,7 +293,9 @@
 
 /**
  *
- * Docs... TODO
+ * Set the configuration for ASGlobalOverlay. Will only impact popovers presented after this is called.
+ *
+ * See ASConfiguration.h for details.
  *
  */
 

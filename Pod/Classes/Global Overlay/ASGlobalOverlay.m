@@ -660,7 +660,7 @@ const static CGFloat kTintOverlayAlpha = 0.6;
 
 + (void)setConfiguration:(ASConfiguration *)configuration{
     
-    if (!configuration || [configuration isMemberOfClass:[ASConfiguration class]]){
+    if (!configuration || ![configuration isMemberOfClass:[ASConfiguration class]]){
         
         [ASGlobalOverlay sharedOverlay].configurationHandler = nil;
         return;
