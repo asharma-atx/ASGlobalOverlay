@@ -20,7 +20,7 @@
 
 + (instancetype)configurationUnpackerWithConfiguration:(ASConfigurations *)configurations{
     
-    ASConfigurationsUnpacker *unpacker = [super init];
+    ASConfigurationsUnpacker *unpacker = [[ASConfigurationsUnpacker alloc] init];
     
     unpacker.configurations = configurations;
     
@@ -65,7 +65,7 @@
     
     if (_configurations.buttonTitleFont) return _configurations.buttonTitleFont;
     
-    return [UIFont fontWithName:@"Avenir Next" size:14.0f];
+    return [UIFont fontWithName:@"Avenir Next" size:14.0f]; // better default TODO
 }
 
 - (UIColor *)buttonTitleColorNormal{

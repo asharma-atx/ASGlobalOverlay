@@ -23,6 +23,7 @@
 
 #import "ASSlideUpMenu.h"
 #import "ASButton.h"
+#import "ASConfigurationsUnpacker.h"
 
 const static CGFloat kSideMarginSpace = 15.0f;
 const static CGFloat kPromptTopBottomMarginSpace = 15.0f;
@@ -33,19 +34,22 @@ const static CGFloat kAnimationMarginSpace = 15.0f;
 @interface ASSlideUpMenu () <ASButtonDismissDelegate>
 
 @property (strong, nonatomic) UILabel *promptLabel;
-@property (strong, nonatomic) NSArray *userOptionButtons;
+@property (strong, nonatomic) NSArray *userOptionButtons; // refactor TODO see alert view
 
 @property (weak, nonatomic) id<ASSlideUpMenuDismissDelegate> delegate;
+@property (strong, nonatomic) ASConfigurationsUnpacker *unpacker;
 
 @end
 
 @implementation ASSlideUpMenu
 
-- (instancetype)initWithPrompt:(NSString *)prompt userActions:(NSArray *)userActions delegate:(id<ASSlideUpMenuDismissDelegate>)delegate{
-    
+- (instancetype)initWithPrompt:(NSString *)prompt userActions:(NSArray *)userActions configurations:(ASConfigurations *)configurations delegate:(id<ASSlideUpMenuDismissDelegate>)delegate{
+
     self = [super init];
     
-    self.backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0];
+    _unpacker = [ASConfigurationsUnpacker configurationUnpackerWithConfiguration:configurations];
+    
+    self.backgroundColor = [_unpacker backgroundColor];
     self.delegate = delegate;
     
     [self addPromptLabelToView:prompt];
@@ -62,8 +66,8 @@ const static CGFloat kAnimationMarginSpace = 15.0f;
     _promptLabel.text = prompt;
     _promptLabel.textAlignment = NSTextAlignmentCenter;
     _promptLabel.numberOfLines = 0.0f;
-    _promptLabel.font = [UIFont fontWithName:@"Avenir" size:kPromptFontSize];
-    _promptLabel.textColor = [UIColor colorWithWhite:0.5f alpha:1.0f];
+    _promptLabel.font = [_unpacker bodyFont];
+    _promptLabel.textColor = [_unpacker bodyColor];
     
     [self addSubview:_promptLabel];
 }
@@ -78,7 +82,7 @@ const static CGFloat kAnimationMarginSpace = 15.0f;
         
         if (numberAdded == 8) break; // maxes the number of buttons to 8
         
-        ASButton *newButton = [[ASButton alloc] initButtonViewWithUserAction:userOption delegate:self];
+        ASButton *newButton = [[ASButton alloc] initButtonViewWithUserAction:userOption configuration:_unpacker delegate:self];
         [self addSubview:newButton];
         [mutableButtonArray addObject:newButton];
         
@@ -101,15 +105,30 @@ const static CGFloat kAnimationMarginSpace = 15.0f;
     CGFloat buttonYOriginOffset = 0.0f;
     if (_promptLabel) buttonYOriginOffset += _promptLabel.frame.size.height + kPromptTopBottomMarginSpace * 2;
     
+    CGFloat buttonHeight = MAX(kButtonHeight, [self minimumButtonHeight]);
+    
     for (ASButton *alertButton in _userOptionButtons) {
         
         alertButton.frame = CGRectMake(0,
                                        buttonYOriginOffset,
                                        self.frame.size.width,
-                                       kButtonHeight);
+                                       buttonHeight);
         
-        buttonYOriginOffset += kButtonHeight;
+        buttonYOriginOffset += buttonHeight;
     }
+}
+
+- (CGFloat)minimumButtonHeight{ // refactor
+    
+    CGFloat largestMinimumButtonHeight = 0.0f;
+    
+    for (ASButton *button in _userOptionButtons) {
+        
+        CGFloat minimumButtonHeight = [button minimumButtonHeight];
+        largestMinimumButtonHeight = MAX(minimumButtonHeight, largestMinimumButtonHeight); // refactor
+    }
+    
+    return largestMinimumButtonHeight;
 }
 
 - (CGFloat)calculateHeightOfViewForWidth:(CGFloat)width{
@@ -122,7 +141,7 @@ const static CGFloat kAnimationMarginSpace = 15.0f;
         promptLabelAndMarginsHeight = promptLabelHeight + kPromptTopBottomMarginSpace * 2;
     }
     
-    CGFloat heightOfUserOptions = kButtonHeight * _userOptionButtons.count;
+    CGFloat heightOfUserOptions = MAX(kButtonHeight, [self minimumButtonHeight]) * _userOptionButtons.count; // refactor -- safey consids.
     
     return heightOfUserOptions + promptLabelAndMarginsHeight;
 }

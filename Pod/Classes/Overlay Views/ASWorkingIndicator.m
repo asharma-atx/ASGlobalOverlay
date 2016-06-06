@@ -36,16 +36,19 @@ const static CGFloat kDescriptionFontSize = 18.0f;
 @property (nonatomic) BOOL hasDescription;
 @property (strong, nonatomic) UILabel *descriptionLabel;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) ASConfigurationsUnpacker *unpacker;
 
 @end
 
 @implementation ASWorkingIndicator
 
-- (instancetype)initWithDescription:(NSString *)description{
-    
+- (instancetype)initWithDescription:(NSString *)description configs:(ASConfigurationsUnpacker *)unpacker{
+
     self = [super init];
     
-    self.backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0];
+    self.unpacker = unpacker;
+    
+    self.backgroundColor = [_unpacker backgroundColor];
     self.layer.cornerRadius = 5.0f;
     self.clipsToBounds = YES;
     
@@ -59,7 +62,7 @@ const static CGFloat kDescriptionFontSize = 18.0f;
 - (void)setupActivityIndicatorView{
     
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    _activityIndicator.color = [UIColor darkGrayColor];
+    _activityIndicator.color = [_unpacker workingSpinnerColor];
     
     [self addSubview:_activityIndicator];
     [_activityIndicator startAnimating];
@@ -68,14 +71,18 @@ const static CGFloat kDescriptionFontSize = 18.0f;
 - (void)setupDescriptionLabelWithDescription:(NSString *)description{
     
     if (description) _hasDescription = YES;
-    else _hasDescription = NO;
+    else _hasDescription = NO; // TODO refactor
     if (!_hasDescription) return;
     
     _descriptionLabel = [[UILabel alloc] init];
     _descriptionLabel.text = description;
-    _descriptionLabel.backgroundColor = [UIColor clearColor];
-    _descriptionLabel.textColor = [UIColor darkGrayColor];
-    _descriptionLabel.font = [UIFont fontWithName:@"AvenirNext-Medium" size:kDescriptionFontSize];
+    _descriptionLabel.backgroundColor = [_unpacker backgroundColor];
+    _descriptionLabel.textColor = [_unpacker titleColor];
+    _descriptionLabel.font = [_unpacker titleFont]; // Reorganize
+    
+    NSLog(@"%@",_descriptionLabel.font.fontName);
+    
+    
     _descriptionLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_descriptionLabel];
 }
@@ -83,7 +90,8 @@ const static CGFloat kDescriptionFontSize = 18.0f;
 - (void)layoutAllSubviews{
     
     if (!_hasDescription) {
-        _activityIndicator.frame = CGRectMake(1.5f, 0.0f, kDefaultSquareViewDimension, kDefaultSquareViewDimension);
+        
+        _activityIndicator.frame = CGRectMake(1.5f, 0.0f, kDefaultSquareViewDimension, kDefaultSquareViewDimension); // TODO document
     }
     
     else{

@@ -6,6 +6,11 @@
 //
 //
 
+// TODO #DEPLOY COPYWRIGHT STUFF
+// TODO REFACTOR CLASS NAMES
+// TODO REWRITE DOCS
+// TODO 
+
 #import <UIKit/UIKit.h>
 
 @interface ASConfigurations : NSObject

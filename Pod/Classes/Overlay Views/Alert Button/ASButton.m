@@ -22,6 +22,10 @@
 // THE SOFTWARE.
 
 #import "ASButton.h"
+#import "ASConfigurationsUnpacker.h"
+
+const static CGFloat minimumTopBottomPadding = 5.0f;
+const static CGFloat minimumSidePadding = 5.0f;
 
 @interface ASButton ()
 
@@ -33,32 +37,36 @@
 @property (nonatomic) ASUserOption *userOption;
 
 @property (nonatomic, weak) id<ASButtonDismissDelegate> delegate;
+@property (strong, nonatomic) ASConfigurationsUnpacker *configurations; // TODO Refactor
 
 @end
 
 @implementation ASButton
 
-- (instancetype)initButtonViewWithUserAction:(ASUserOption *)userAction delegate:(id<ASButtonDismissDelegate>)delegate{
-    
+- (instancetype)initButtonViewWithUserAction:(ASUserOption *)userAction configuration:(ASConfigurationsUnpacker *)configurations delegate:(id<ASButtonDismissDelegate>)delegate{
+
     self = [super init];
+    
+    _configurations = configurations; // TODO refacot
     
     _userOption = userAction;
     _delegate = delegate;
-    self.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = [_configurations backgroundColor];
     
     _button = [UIButton buttonWithType:UIButtonTypeSystem];
     [_button setTitle:userAction.actionTitle forState:UIControlStateNormal];
-    [_button setBackgroundColor:[UIColor clearColor]];
+    [_button setBackgroundColor:[_configurations backgroundColor]];
+    [_button.titleLabel setFont:[_configurations buttonTitleFont]];
     [_button addTarget:self action:@selector(performUserActionBlockAndDismissAlert) forControlEvents:UIControlEventTouchUpInside];
     [self configureTextColor];
     [self addSubview:_button];
     
     _topBorderLine = [[UIView alloc] init];
-    _topBorderLine.backgroundColor = [UIColor colorWithWhite:0.85f alpha:1.0f];
+    _topBorderLine.backgroundColor = [_configurations seporatorLineColor];//[UIColor colorWithWhite:0.85f alpha:1.0f];
     [self addSubview:_topBorderLine];
     
     _rightBorderLine = [[UIView alloc]init];
-    _rightBorderLine.backgroundColor = [UIColor colorWithWhite:0.85f alpha:1.0f];
+    _rightBorderLine.backgroundColor = [_configurations seporatorLineColor];//[UIColor colorWithWhite:0.85f alpha:1.0f];
     _rightBorderLine.hidden = YES;
     [self addSubview:_rightBorderLine];
 
@@ -67,9 +75,9 @@
 
 - (void)configureTextColor{
     
-    UIColor *textColor = [UIColor darkGrayColor];
-    if (_userOption.isDestructiveAction) textColor = [UIColor colorWithRed:0.730f green:0.121f blue:0.130f alpha:1.00f];
-    if (_userOption.isCancelAction) textColor = [UIColor colorWithWhite:0.5f alpha:1.0f];
+    UIColor *textColor = [_configurations buttonTitleColorNormal];
+    if (_userOption.isDestructiveAction) textColor = [_configurations buttonTitleColorDestructive];
+    if (_userOption.isCancelAction) textColor = [_configurations buttonTitleColorCancel];
     [_button setTitleColor:textColor forState:UIControlStateNormal];
 }
 
@@ -97,7 +105,12 @@
 
 - (CGFloat)widthOfButtonLabel{
     
-    return [_button.titleLabel sizeThatFits:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)].width;
+    return [_button.titleLabel sizeThatFits:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)].width + minimumSidePadding * 2;
+}
+
+- (CGFloat)minimumButtonHeight{
+    
+    return [_button.titleLabel sizeThatFits:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)].height + minimumTopBottomPadding * 2;
 }
 
 @end

@@ -22,12 +22,13 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import "ASConfigurationsUnpacker.h"
 
-@class ASWorkingIndicator;
+@class ASWorkingIndicator; // why is there here? Remove? TODO
 
 @interface ASWorkingIndicator : UIView
 
-- (instancetype)initWithDescription:(NSString *)description;
+- (instancetype)initWithDescription:(NSString *)description configs:(ASConfigurationsUnpacker *)unpacker;
 - (void)layoutAndCenterInFrame:(CGRect)frame;
 
 @end

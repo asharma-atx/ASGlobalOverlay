@@ -24,11 +24,11 @@
 #import "ASAlertView.h"
 #import "ASUserOption.h"
 #import "ASButton.h"
+#import "ASConfigurationsUnpacker.h"
 
 // sizing-related constants
 const static CGFloat kAlertViewWidth = 280;
 const static CGFloat kTopToTitleMarginSpace = 18;
-const static CGFloat kTitleBannerHeight = 20;
 const static CGFloat kMessageSideMarginSpace = 15;
 const static CGFloat kMessageTopBottomMarginSpace = 15;
 const static CGFloat kMessageLabelWidth = kAlertViewWidth - kMessageSideMarginSpace * 2;
@@ -50,17 +50,20 @@ const static CGFloat kMessageFontSize = 14;
 @property (nonatomic) BOOL containsAtLeastOneUserOption;
 
 @property (weak, nonatomic) id<ASAlertViewDismissalDelegate> delegate;
+@property (strong, nonatomic) ASConfigurationsUnpacker *configurationUnpacker;
 
 @end
 
 @implementation ASAlertView
 
-- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message userActions:(NSArray *)userActions delegate:(id<ASAlertViewDismissalDelegate>)delegate{
-    
+- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message userActions:(NSArray *)userActions configuration:(ASConfigurations *)configuration delegate:(id<ASAlertViewDismissalDelegate>)delegate{
+
     self = [super init];
     
+    self.configurationUnpacker = [ASConfigurationsUnpacker configurationUnpackerWithConfiguration:configuration];
     self.delegate = delegate;
-    self.backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0];
+    
+    self.backgroundColor = [_configurationUnpacker backgroundColor];
     self.layer.cornerRadius = 5.0f;
     self.clipsToBounds = YES;
     
@@ -75,9 +78,9 @@ const static CGFloat kMessageFontSize = 14;
     
     _titleBannerLabel = [[UILabel alloc] init];
     _titleBannerLabel.backgroundColor = [UIColor clearColor];
-    _titleBannerLabel.textColor = [UIColor darkGrayColor];
     _titleBannerLabel.text = title ? title : @"Alert";
-    _titleBannerLabel.font = [UIFont fontWithName:@"AvenirNext-Medium" size:kTitleFontSize];
+    _titleBannerLabel.font = [_configurationUnpacker titleFont];
+    _titleBannerLabel.textColor = [_configurationUnpacker titleColor];
     _titleBannerLabel.textAlignment = NSTextAlignmentCenter;
     
     [self addSubview:_titleBannerLabel];
@@ -91,8 +94,8 @@ const static CGFloat kMessageFontSize = 14;
     _alertMessageLabel = [[UILabel alloc]init];
     _alertMessageLabel.text = message;
     _alertMessageLabel.numberOfLines = 8;
-    _alertMessageLabel.textColor = [UIColor darkGrayColor];
-    _alertMessageLabel.font = [UIFont fontWithName:@"Avenir Next" size:kMessageFontSize];
+    _alertMessageLabel.font = [_configurationUnpacker bodyFont];
+    _alertMessageLabel.textColor = [_configurationUnpacker bodyColor];
     _alertMessageLabel.textAlignment = NSTextAlignmentCenter;
     
     [self addSubview:_alertMessageLabel];
@@ -112,7 +115,7 @@ const static CGFloat kMessageFontSize = 14;
         
         if (numberAdded == 8) break; // maxes the number of buttons to 8
         
-        ASButton *newButton = [[ASButton alloc] initButtonViewWithUserAction:userOption delegate:self];
+        ASButton *newButton = [[ASButton alloc] initButtonViewWithUserAction:userOption configuration:_configurationUnpacker delegate:self];
         [mutableButtonsArray addObject:newButton];
         [self addSubview:newButton];
         
@@ -124,8 +127,10 @@ const static CGFloat kMessageFontSize = 14;
 
 - (void)layoutAllSubviews{
     
+    CGFloat titleBannerHeight = [_titleBannerLabel sizeThatFits:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)].height;
+    
     // title banner
-    _titleBannerLabel.frame = CGRectMake(0, kTopToTitleMarginSpace, kAlertViewWidth, kTitleBannerHeight);
+    _titleBannerLabel.frame = CGRectMake(0, kTopToTitleMarginSpace, kAlertViewWidth, titleBannerHeight);
     
     // alert message (if any)
     if (_containsMessage) {
@@ -133,7 +138,7 @@ const static CGFloat kMessageFontSize = 14;
         CGSize messageSize =  [_alertMessageLabel sizeThatFits:CGSizeMake(kMessageLabelWidth, CGFLOAT_MAX)];
         
         _alertMessageLabel.frame = CGRectMake(kMessageSideMarginSpace,
-                                              kTopToTitleMarginSpace + kTitleBannerHeight + kMessageTopBottomMarginSpace,
+                                              kTopToTitleMarginSpace + titleBannerHeight + kMessageTopBottomMarginSpace,
                                               kMessageLabelWidth,
                                               messageSize.height);
     }
@@ -141,15 +146,17 @@ const static CGFloat kMessageFontSize = 14;
     // users buttons (if any)
     if (_containsAtLeastOneUserOption) {
         
-        CGFloat alertMessageOffset = (_containsMessage) ? _alertMessageLabel.frame.size.height + kMessageTopBottomMarginSpace : 0.0f;
-        CGFloat originY = kTopToTitleMarginSpace + kTitleBannerHeight + kMessageTopBottomMarginSpace + alertMessageOffset;
+        CGFloat buttonHeight = MAX(kUserOptionButtonHeight, [self minimumButtonHeight]);
+        
+        CGFloat alertMessageOffset = _containsMessage ? _alertMessageLabel.frame.size.height + kMessageTopBottomMarginSpace : 0.0f;
+        CGFloat originY = kTopToTitleMarginSpace + titleBannerHeight + kMessageTopBottomMarginSpace + alertMessageOffset;
 
         if ([self canFitButtonsInSingleRow]) {
             
             ASButton *buttonOne = (ASButton *)[_userOptionsButtons firstObject];
             ASButton *buttonTwo = (ASButton *)[_userOptionsButtons lastObject];
-            buttonOne.frame = CGRectMake(kAlertViewWidth / 2, originY, kAlertViewWidth / 2, kUserOptionButtonHeight);
-            buttonTwo.frame = CGRectMake(0, originY, kAlertViewWidth / 2, kUserOptionButtonHeight);
+            buttonOne.frame = CGRectMake(kAlertViewWidth / 2, originY, kAlertViewWidth / 2, buttonHeight);
+            buttonTwo.frame = CGRectMake(0, originY, kAlertViewWidth / 2, buttonHeight);
             [buttonTwo makeRightSideBorderHidden:NO];
         }
         
@@ -159,18 +166,17 @@ const static CGFloat kMessageFontSize = 14;
             
             for (ASButton *button in _userOptionsButtons) {
                 
-                CGFloat originYWithOffset = originY + buttonIndex * kUserOptionButtonHeight;
+                CGFloat originYWithOffset = originY + buttonIndex * buttonHeight;
                 
                 button.frame = CGRectMake(0,
                                           originYWithOffset,
                                           kAlertViewWidth,
-                                          kUserOptionButtonHeight);
+                                          buttonHeight);
                 buttonIndex ++;
             }
         }
     }
 }
-
 
 - (BOOL)canFitButtonsInSingleRow{
     
@@ -189,6 +195,19 @@ const static CGFloat kMessageFontSize = 14;
     return NO;
 }
 
+- (CGFloat)minimumButtonHeight{
+    
+    CGFloat largestMinimumButtonHeight = 0.0f;
+    
+    for (ASButton *button in _userOptionsButtons) {
+        
+        CGFloat minimumButtonHeight = [button minimumButtonHeight];
+        largestMinimumButtonHeight = MAX(minimumButtonHeight, largestMinimumButtonHeight);
+    }
+    
+    return largestMinimumButtonHeight;
+}
+
 #pragma mark - ASButtonDismissDelegate
 
 - (void)dismissView{
@@ -202,13 +221,13 @@ const static CGFloat kMessageFontSize = 14;
     
     [self layoutAllSubviews];
     
-    UIButton *sampleButton = [_userOptionsButtons lastObject];
+    UIButton *lastButton = [_userOptionsButtons lastObject]; // TODO safety
     
     CGFloat totalHeight = 0.0f;
     
-    if (_containsAtLeastOneUserOption) totalHeight = sampleButton.frame.origin.y + kUserOptionButtonHeight;
+    if (_containsAtLeastOneUserOption) totalHeight = lastButton.frame.origin.y + lastButton.frame.size.height;
     else if (_containsMessage) totalHeight = _alertMessageLabel.frame.origin.y + _alertMessageLabel.frame.size.height + kMessageTopBottomMarginSpace;
-    else totalHeight = kTitleBannerHeight + kTopToTitleMarginSpace * 2;
+    else totalHeight = _titleBannerLabel.frame.size.height + kTopToTitleMarginSpace * 2;
     
     self.frame = CGRectMake((frame.size.width - kAlertViewWidth) / 2,
                             (frame.size.height - totalHeight) / 2,
