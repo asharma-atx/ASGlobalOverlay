@@ -70,8 +70,7 @@ const static CGFloat kSpinnerCenteringOffset = 1.5f; // helps center spinner, si
 
 - (void)setupDescriptionLabelWithDescription:(NSString *)description{
     
-    if (description) _hasDescription = YES;
-    else _hasDescription = NO; // TODO refactor
+    _hasDescription = (description);
     if (!_hasDescription) return;
     
     _descriptionLabel = [[UILabel alloc] init];
