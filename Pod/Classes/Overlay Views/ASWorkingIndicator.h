@@ -24,8 +24,6 @@
 #import <UIKit/UIKit.h>
 #import "ASConfigurationHandler.h"
 
-@class ASWorkingIndicator; // why is there here? Remove? TODO
-
 @interface ASWorkingIndicator : UIView
 
 - (instancetype)initWithDescription:(NSString *)description configurationHandler:(ASConfigurationHandler *)configurationHandler;
