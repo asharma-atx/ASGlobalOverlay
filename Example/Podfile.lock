@@ -6,10 +6,10 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   ASGlobalOverlay:
-    :path: "../"
+    :path: ../
 
 SPEC CHECKSUMS:
-  ASGlobalOverlay: 9bc251729f893cff3e41dcfd5d2248ecf84c9b87
+  ASGlobalOverlay: 6bb0904c590823aab6243a4bc160778e07083dd5
 
 PODFILE CHECKSUM: 3651ae339907facb0fc403dbd06fabe6ad2a22eb
 
