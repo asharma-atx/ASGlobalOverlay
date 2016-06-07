@@ -52,10 +52,6 @@
     ASConfiguration *configuration = [ASConfiguration configurationWithForegroundColor:[UIColor colorWithRed:0.271 green:0.090 blue:0.000 alpha:1.00]
                                                                        backgroundColor:[UIColor colorWithRed:0.973 green:0.945 blue:0.894 alpha:1.00]];
     
-    configuration.titleFont = [UIFont fontWithName:@"Courier-Bold" size:18.0f];
-    configuration.bodyFont = [UIFont fontWithName:@"Courier" size:14.0f];
-    configuration.buttonTitleFont = [UIFont fontWithName:@"Courier" size:14.0f];
-    
     return configuration;
 }
 
