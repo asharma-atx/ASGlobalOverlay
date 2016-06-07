@@ -256,9 +256,6 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Amit Sharma";
 				TargetAttributes = {
-					6003F589195388D20070C39A = {
-						DevelopmentTeam = G8D7H8E252;
-					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};

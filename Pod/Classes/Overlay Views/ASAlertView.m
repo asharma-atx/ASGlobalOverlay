@@ -84,7 +84,7 @@ const static CGFloat kDefaultButtonHeight = 40.0f;
 
 - (void)setupAlertMessageWithMessage:(NSString *)message{
     
-    _containsMessage = (message);
+    _containsMessage = (message) ? YES : NO;
     if (!_containsMessage) return;
     
     _alertMessageLabel = [[UILabel alloc]init];

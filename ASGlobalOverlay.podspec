@@ -1,11 +1,11 @@
 
 Pod::Spec.new do |s|
   s.name             = "ASGlobalOverlay"
-  s.version          = "1.1.0"
+  s.version          = "1.2.0"
   s.summary          = "A modern pop-over controller thats easy to implement."
   s.description      = <<-DESC
 
-  ASGlobalOverlay is a pop-over controller that can display alerts, slide-up menus, and is-working indicators on top of your app. It features a modern interface and easy implementation. Check out the README for details.
+  ASGlobalOverlay is a pop-over controller that can display alerts, slide-up menus, and is-working indicators on top of your app. It features a modern interface and easy implementation. Checkout the README for details.
 
                        DESC
 
