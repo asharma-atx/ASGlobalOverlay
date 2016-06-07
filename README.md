@@ -61,10 +61,10 @@ Typical use of `ASGlobalOverlay` looks something like this:
     [ASGlobalOverlay showWorkingIndicatorWithDescription:@"Loading"];
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    
+
         // some background task
         dispatch_async(dispatch_get_main_queue(), ^{
-        
+
             [ASGlobalOverlay dismissWorkingIndicator];
         });
     });
@@ -74,6 +74,35 @@ Typical use of `ASGlobalOverlay` looks something like this:
 Check out the `ASGlobalOverlay` header and the `ASUserOption` header for additional info and handy helper methods.
 
 Please read the following section for important implementation details.
+
+# Configurations
+
+```objective-c
+
+- (void)customConfigurations{
+
+  ASConfiguration * configuration = [ASConfiguration new];
+
+  configuration.backgroundColor = yourColor;
+  configuration.titleColor = yourColor;
+  configuration.bodyColor = yourColor;
+  configuration.workingSpinnerColor = yourColor;
+  configuration.separatorLineColor = yourColor;
+  configuration.buttonTitleColorNormal = yourColor;
+  configuration.buttonTitleColorCancel = yourColor;
+  configuration.buttonTitleColorDestructive = yourColor;
+
+  configuration.titleFont = [UIFont fontWithName:@"Courier-Bold" size:17.0f];
+  configuration.bodyFont = [UIFont fontWithName:@"Courier" size:14.0f];
+  configuration.buttonTitleFont = [UIFont fontWithName:@"Courier" size:14.0f];
+
+  [configuration makeCurrentConfiguration];
+}
+
+// be sure to read the ASConfiguration header!
+// There are useful helper methods, including configuration presets and support for dynamic fonts.
+
+```
 
 ## Usage & Behavior Notes
 
@@ -87,15 +116,19 @@ Please read the following section for important implementation details.
 
 ## About
 
-ASGlobalOverlay provides a consistent way to show pop-overs to the user. Overtime, I plan to make this a highly customizable alternative to UIAlertController.
+ASGlobalOverlay provides a consistent way to show pop-overs to the user.
+
+## New Features in 1.2
+
+* Customizable color schemes
+* Customizable fonts
+* Dynamic font support
 
 ## Planned Features
 
 * Progress bar pop-over
-* Customizable colors via UIAppearance
-* Customizable font
-* Dynamic font support
 * Automatic main-thread grabbing
+* Custom pop-overs
 
 *Planned features are subject to change.*
 
@@ -112,6 +145,6 @@ ASGlobalOverlay is available under the MIT license. See the LICENSE file for mor
 
 `ASGlobalOverlay` is written and maintained by [Amit Sharma](https://github.com/asharma-atx).
 
-The high-level architecture of `ASGlobalOverlay` (and one specific method) is largely based on the the [SVProgressHUD](https://github.com/SVProgressHUD/SVProgressHUD) code. SVProgressHUD is a fantastic library, and its developers deserve major kudos for their work.
+The high-level architecture of `ASGlobalOverlay` is based on the the [SVProgressHUD](https://github.com/SVProgressHUD/SVProgressHUD) code. SVProgressHUD is a fantastic library, and its developers deserve major kudos for their work.
 
 Since ASGlobalOverlay and SVProgressHUD utilize similar code to position themselves in the view hierarchy, it is not recommended that you use them together.

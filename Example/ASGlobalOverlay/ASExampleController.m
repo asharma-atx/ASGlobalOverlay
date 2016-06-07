@@ -174,7 +174,7 @@
         //  Also try:
         // [[ASConfiguration latteTheme] makeCurrentConfiguration];
         // [[ASConfiguration typewriterTheme] makeCurrentConfiguration];
-         [[self dynamicFontConfiguration] makeCurrentConfiguration];
+        // [[self dynamicFontConfiguration] makeCurrentConfiguration];
     }
     
     else if (segControl.selectedSegmentIndex == 2){
@@ -192,7 +192,6 @@
                                                                   bodyFontName:@"Avenir Next"
                                                                 buttonFontName:@"AvenirNext-Medium"];
 }
-
 
 #pragma mark - Keyboard Handling
 
