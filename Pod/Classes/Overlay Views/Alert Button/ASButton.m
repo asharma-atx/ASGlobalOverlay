@@ -61,11 +61,11 @@ const static CGFloat minimumSidePadding = 5.0f;
     [self addSubview:_button];
     
     _topBorderLine = [[UIView alloc] init];
-    _topBorderLine.backgroundColor = [configurationHandler seporatorLineColor];
+    _topBorderLine.backgroundColor = [configurationHandler separatorLineColor];
     [self addSubview:_topBorderLine];
     
     _rightBorderLine = [[UIView alloc]init];
-    _rightBorderLine.backgroundColor = [configurationHandler seporatorLineColor];
+    _rightBorderLine.backgroundColor = [configurationHandler separatorLineColor];
     _rightBorderLine.hidden = YES;
     [self addSubview:_rightBorderLine];
 

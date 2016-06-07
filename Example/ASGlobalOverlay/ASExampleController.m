@@ -73,7 +73,7 @@
     ASUserOption *understands = [ASUserOption userOptionWithTitle:@"Yes, I Understand" actionBlock:^{NSLog(@"The user understands the situation");}];
     ASUserOption *doesNotUnderstand = [ASUserOption userOptionWithTitle:@"No" actionBlock:^{NSLog(@"The user is confused");}];
     
-    [ASGlobalOverlay showAlertWithTitle:@"The Robot are Attacking!" message:@"This is a bad situation. Do you understand how bad this is?" userOptions:@[understands, doesNotUnderstand]];
+    [ASGlobalOverlay showAlertWithTitle:@"The Robots are Attacking!" message:@"This is a bad situation. Do you understand how bad this is?" userOptions:@[understands, doesNotUnderstand]];
 }
 
 #pragma mark - Slide Up Menu
@@ -170,11 +170,15 @@
     else if (segControl.selectedSegmentIndex == 1){
         
         [[ASConfiguration nightTheme] makeCurrentConfiguration];
+        
+        //  Also try:
+        // [[ASConfiguration latteTheme] makeCurrentConfiguration];
+        // [[ASConfiguration typewriterTheme] makeCurrentConfiguration];
     }
     
     else if (segControl.selectedSegmentIndex == 2){
         
-        ASConfiguration *configuration = [ASConfiguration configurationWithForgroundColor:[UIColor whiteColor]
+        ASConfiguration *configuration = [ASConfiguration configurationWithForegroundColor:[UIColor whiteColor]
                                                                           backgroundColor:[UIColor colorWithRed:0.173 green:0.404 blue:0.784 alpha:1.00]];
         
         [configuration makeCurrentConfiguration];
