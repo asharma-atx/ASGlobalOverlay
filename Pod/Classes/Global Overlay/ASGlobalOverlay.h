@@ -293,9 +293,9 @@
 
 /**
  *
- * Set the configuration for ASGlobalOverlay. Will only impact popovers presented after a configuration is set.
+ * Sets the configuration for ASGlobalOverlay. Will only impact popovers presented after the configuration is set.
  *
- * See ASConfiguration.h for details.
+ * @see ASConfiguration.h for details.
  *
  */
 
