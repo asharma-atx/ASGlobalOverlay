@@ -27,6 +27,7 @@
 
 // sizing-related constants
 const static CGFloat kAlertViewWidth = 280;
+const static CGFloat kTitleMarginSideSpace = 10;
 const static CGFloat kTopToTitleMarginSpace = 18;
 const static CGFloat kMessageSideMarginSpace = 15;
 const static CGFloat kMessageTopBottomMarginSpace = 15;
@@ -125,7 +126,10 @@ const static CGFloat kDefaultButtonHeight = 40.0f;
     CGFloat titleBannerHeight = [_titleBannerLabel sizeThatFits:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)].height;
     
     // title banner
-    _titleBannerLabel.frame = CGRectMake(0, kTopToTitleMarginSpace, kAlertViewWidth, titleBannerHeight);
+    _titleBannerLabel.frame = CGRectMake(kTitleMarginSideSpace,
+                                         kTopToTitleMarginSpace,
+                                         kAlertViewWidth - kTitleMarginSideSpace * 2,
+                                         titleBannerHeight);
     
     // alert message (if any)
     if (_containsMessage) {

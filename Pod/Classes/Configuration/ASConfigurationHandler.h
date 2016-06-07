@@ -37,6 +37,6 @@
 #pragma mark - General
 
 - (UIColor *)backgroundColor;
-- (UIColor *)seporatorLineColor;
+- (UIColor *)separatorLineColor;
 
 @end

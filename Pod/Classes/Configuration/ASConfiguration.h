@@ -21,10 +21,10 @@
 
 /**
  *
- * An instance ASConfiguration represents a configuration of ASGlobalOverlay.
+ * An instance of ASConfiguration represents a configuration of ASGlobalOverlay.
  * 
  * Once an instance of ASConfiguration is created, make it active by calling +setConfiguration: on ASGlobalOverlay.
- * Alternively, you can make a given configuation object the current object by calling -makeCurrentConfiguration on it.
+ * Alternatively, you can make a configuration object the set configuration by calling -makeCurrentConfiguration on it.
  *
  */
 
@@ -88,7 +88,7 @@
 
 /**
  *
- * Font color used for buttons that have descructive results.
+ * Font color used for buttons that have destructive results.
  *
  */
 
@@ -112,25 +112,25 @@
 
 /**
  *
- * Seporator line color.
+ * Separator line color.
  *
  */
 
-@property (copy, nonatomic) UIColor *seporatorLineColor;
+@property (copy, nonatomic) UIColor *separatorLineColor;
 
 #pragma mark - Helpers
 
 /**
  *
- * Helper method for quickly creating custom configurations. The returned object can be further customized.
+ * Helper method for quickly creating custom configurations.
  *
- * @param foregroundColor The color of all the fonts, the seporator line, and the working indicator spinner.
+ * @param foregroundColor The color of all the fonts, the separator line, and the working indicator spinner.
  *
  * @param backgroundColor The color of popover background.
  *
  */
 
-+ (instancetype)configurationWithForgroundColor:(UIColor *)foregroundColor backgroundColor:(UIColor *)backgroundColor;
++ (instancetype)configurationWithForegroundColor:(UIColor *)foregroundColor backgroundColor:(UIColor *)backgroundColor;
 
 /**
  *
@@ -142,7 +142,26 @@
 
 /**
  *
- * Makes the configuration the current configuration. This is the same as manually setting the configuration via [ASGlobalOverlay setConfiguration:yourConfiguration].
+ * Returns a typewriter-themed configuration object.
+ *
+ */
+
++ (instancetype)typewriterTheme;
+
+/**
+ *
+ * Returns a latte-themed configuration object.
+ *
+ */
+
++ (instancetype)latteTheme;
+
+#pragma mark - Make Current
+
+/**
+ *
+ * Makes the configuration the current configuration.
+ * This is the same as manually setting the configuration via [ASGlobalOverlay setConfiguration:yourConfiguration].
  *
  */
 

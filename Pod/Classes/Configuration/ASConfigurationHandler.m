@@ -107,9 +107,9 @@
     return [UIColor colorWithWhite:0.95f alpha:1.0];
 }
 
-- (UIColor *)seporatorLineColor{
+- (UIColor *)separatorLineColor{
     
-    if (_configuration.seporatorLineColor) return _configuration.seporatorLineColor;
+    if (_configuration.separatorLineColor) return _configuration.separatorLineColor;
     
     return [UIColor colorWithWhite:0.85f alpha:1.0f];
 }
