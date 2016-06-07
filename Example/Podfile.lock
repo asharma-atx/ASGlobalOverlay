@@ -1,15 +1,15 @@
 PODS:
-  - ASGlobalOverlay (1.0.1)
+  - ASGlobalOverlay (1.1.0)
 
 DEPENDENCIES:
   - ASGlobalOverlay (from `../`)
 
 EXTERNAL SOURCES:
   ASGlobalOverlay:
-    :path: "../"
+    :path: ../
 
 SPEC CHECKSUMS:
-  ASGlobalOverlay: 7cb09580d982ed0345a9d5dfe565144c7d013ae7
+  ASGlobalOverlay: 6bb0904c590823aab6243a4bc160778e07083dd5
 
 PODFILE CHECKSUM: 3651ae339907facb0fc403dbd06fabe6ad2a22eb
 

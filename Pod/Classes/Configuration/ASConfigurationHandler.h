@@ -1,7 +1,7 @@
 //
 // ASGlobalOverlay
 //
-// Copyright (c) 2015 Amit Sharma <amitsharma@mac.com>
+// Copyright (c) 2016 Amit Sharma <amitsharma@mac.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,21 +21,37 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
-#import "ASConfigurationHandler.h"
+#import <Foundation/Foundation.h>
+#import "ASConfiguration.h"
 
-@class ASSlideUpMenu;
+@interface ASConfigurationHandler : NSObject
 
-@protocol ASSlideUpMenuDismissDelegate <NSObject>
++ (instancetype)configurationHandlerWithConfiguration:(ASConfiguration *)configuration;
 
-- (void)dismissSlideUpMenu:(ASSlideUpMenu *)slideUpMenu;
+#pragma mark - Title Font
 
-@end
+- (UIFont *)titleFont;
+- (UIColor *)titleColor;
 
-@interface ASSlideUpMenu : UIView
+#pragma mark - Body
 
-- (instancetype)initWithPrompt:(NSString *)prompt userActions:(NSArray *)userActions configurationHandler:(ASConfigurationHandler *)configurationHandler delegate:(id<ASSlideUpMenuDismissDelegate>)delegate;
-- (void)layoutAndPositionInFrame:(CGRect)frame;
-- (CGFloat)distanceToOffsetYForAnimation;
+- (UIFont *)bodyFont;
+- (UIColor *)bodyColor;
+
+#pragma mark - Button
+
+- (UIFont *)buttonTitleFont;
+- (UIColor *)buttonTitleColorNormal;
+- (UIColor *)buttonTitleColorCancel;
+- (UIColor *)buttonTitleColorDestructive;
+
+#pragma mark - Working Indicator Spinner
+
+- (UIColor *)workingSpinnerColor;
+
+#pragma mark - General
+
+- (UIColor *)backgroundColor;
+- (UIColor *)separatorLineColor;
 
 @end

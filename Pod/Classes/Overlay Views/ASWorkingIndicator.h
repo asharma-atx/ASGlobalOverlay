@@ -22,12 +22,11 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
-
-@class ASWorkingIndicator;
+#import "ASConfigurationHandler.h"
 
 @interface ASWorkingIndicator : UIView
 
-- (instancetype)initWithDescription:(NSString *)description;
+- (instancetype)initWithDescription:(NSString *)description configurationHandler:(ASConfigurationHandler *)configurationHandler;
 - (void)layoutAndCenterInFrame:(CGRect)frame;
 
 @end

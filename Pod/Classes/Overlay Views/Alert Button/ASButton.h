@@ -23,6 +23,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ASUserOption.h"
+#import "ASConfigurationHandler.h"
 
 const static NSInteger kDoNotRemoveViewTag = 100001;
 
@@ -34,8 +35,10 @@ const static NSInteger kDoNotRemoveViewTag = 100001;
 
 @interface ASButton : UIView
 
-- (instancetype)initButtonViewWithUserAction:(ASUserOption *)userAction delegate:(id<ASButtonDismissDelegate>)delegate;
-- (CGFloat)widthOfButtonLabel;
+- (instancetype)initButtonViewWithUserAction:(ASUserOption *)userAction configurationHandler:(ASConfigurationHandler *)configurationHandler delegate:(id<ASButtonDismissDelegate>)delegate;
 - (void)makeRightSideBorderHidden:(BOOL)hidden;
+
+- (CGFloat)widthOfButtonLabel;
+- (CGFloat)minimumButtonHeight;
 
 @end

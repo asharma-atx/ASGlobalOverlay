@@ -73,7 +73,7 @@
     ASUserOption *understands = [ASUserOption userOptionWithTitle:@"Yes, I Understand" actionBlock:^{NSLog(@"The user understands the situation");}];
     ASUserOption *doesNotUnderstand = [ASUserOption userOptionWithTitle:@"No" actionBlock:^{NSLog(@"The user is confused");}];
     
-    [ASGlobalOverlay showAlertWithTitle:@"The Robot are Attacking!" message:@"This is a bad situation. Do you understand how bad this is?" userOptions:@[understands, doesNotUnderstand]];
+    [ASGlobalOverlay showAlertWithTitle:@"The Robots are Attacking!" message:@"This is a bad situation. Do you understand how bad this is?" userOptions:@[understands, doesNotUnderstand]];
 }
 
 #pragma mark - Slide Up Menu
@@ -91,6 +91,8 @@
 }
 
 - (IBAction)showSlideUpMenuWithDestructiveOption:(id)sender {
+    
+    [self dismissKeyboard];
     
     ASUserOption *delete = [ASUserOption destructiveUserOptionWithTitle:@"Delete" actionBlock:^{NSLog(@"'Delete' pressed");}];
     ASUserOption *cancel = [ASUserOption cancelUserOptionWithTitle:@"Cancel" actionBlock:^{NSLog(@"'Cancel' pressed");}];
@@ -125,7 +127,7 @@
     [self performSelector:@selector(showPaymentSuccessAlert) withObject:nil afterDelay:2.0f];
 }
 
--(void)showPaymentSuccessAlert{
+- (void)showPaymentSuccessAlert{
     
     [self dismissKeyboard];
 
@@ -147,11 +149,48 @@
     [ASGlobalOverlay showSlideUpMenuWithPrompt:@"For the purpose of this demo, select 'Delete.'" userOptions:@[delete, cancel]];
 }
 
--(void)showWorkingIndicatorThenSuccessIndicator{
+- (void)showWorkingIndicatorThenSuccessIndicator{
     
     [self dismissKeyboard];
 
     [self workingIndicatorThenAlert:nil];
+}
+
+#pragma mark - Configuration Management
+
+- (IBAction)segmentValueChanged:(id)sender {
+    
+    UISegmentedControl *segControl = (UISegmentedControl *)sender;
+    
+    if (segControl.selectedSegmentIndex == 0) {
+        
+        [ASGlobalOverlay setConfiguration:nil];
+    }
+    
+    else if (segControl.selectedSegmentIndex == 1){
+        
+        [[ASConfiguration nightTheme] makeCurrentConfiguration];
+        
+        //  Also try:
+        // [[ASConfiguration latteTheme] makeCurrentConfiguration];
+        // [[ASConfiguration typewriterTheme] makeCurrentConfiguration];
+        // [[self dynamicFontConfiguration] makeCurrentConfiguration];
+    }
+    
+    else if (segControl.selectedSegmentIndex == 2){
+        
+        ASConfiguration *configuration = [ASConfiguration configurationWithForegroundColor:[UIColor whiteColor]
+                                                                          backgroundColor:[UIColor colorWithRed:0.173 green:0.404 blue:0.784 alpha:1.00]];
+        
+        [configuration makeCurrentConfiguration];
+    }
+}
+
+- (ASConfiguration *)dynamicFontConfiguration{
+    
+    return [ASConfiguration configurationWithDynamicFontSizesWithTitleFontName:@"AvenirNext-Medium"
+                                                                  bodyFontName:@"Avenir Next"
+                                                                buttonFontName:@"AvenirNext-Medium"];
 }
 
 #pragma mark - Keyboard Handling
