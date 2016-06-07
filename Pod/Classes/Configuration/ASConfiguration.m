@@ -55,6 +55,48 @@
     return configuration;
 }
 
+#pragma mark - Dynamic Font
+
++ (instancetype)configurationWithDynamicFontSizesWithTitleFontName:(NSString *)titleFontName bodyFontName:(NSString *)bodyFontName buttonFontName:(NSString *)buttonFontName{
+
+    ASConfiguration *configuration = [ASConfiguration new];
+    
+    if (titleFontName){
+        
+        CGFloat titleFontSize = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline].pointSize;
+        configuration.titleFont = [UIFont fontWithName:titleFontName size:titleFontSize];
+    }
+    
+    else{
+        
+        configuration.titleFont = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+    }
+    
+    if (bodyFontName){
+        
+        CGFloat bodyFontSize = [UIFont preferredFontForTextStyle:UIFontTextStyleBody].pointSize;
+        configuration.bodyFont = [UIFont fontWithName:bodyFontName size:bodyFontSize];
+    }
+    
+    else{
+        
+        configuration.bodyFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    }
+    
+    if (buttonFontName){
+        
+        CGFloat buttonFontSize = [UIFont preferredFontForTextStyle:UIFontTextStyleBody].pointSize;
+        configuration.buttonTitleFont = [UIFont fontWithName:buttonFontName size:buttonFontSize];
+    }
+    
+    else{
+        
+        configuration.buttonTitleFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    }
+    
+    return configuration;
+}
+
 #pragma mark - Make Current
 
 - (void)makeCurrentConfiguration{
