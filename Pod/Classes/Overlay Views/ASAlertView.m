@@ -29,7 +29,7 @@
 const static CGFloat kAlertViewWidth = 280;
 const static CGFloat kTitleMarginSideSpace = 10;
 const static CGFloat kTopToTitleMarginSpace = 18;
-const static CGFloat kMessageSideMarginSpace = 15;
+const static CGFloat kMessageSideMarginSpace = 10;
 const static CGFloat kMessageTopBottomMarginSpace = 15;
 const static CGFloat kMessageLabelWidth = kAlertViewWidth - kMessageSideMarginSpace * 2;
 const static CGFloat kDefaultButtonHeight = 40.0f;

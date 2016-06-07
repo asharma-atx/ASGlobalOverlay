@@ -156,6 +156,18 @@
 
 + (instancetype)latteTheme;
 
+#pragma mark - Dynamic Font
+
+/**
+ *
+ * Returns a configuration object that uses the given font name and the system dynamic font sizes.
+ * If no font name is given, the system default fonts are used.
+ * Does not include a color scheme. Therefore, the default color scheme will be used unless otherwise set.
+ *
+ */
+
++ (instancetype)configurationWithDynamicFontSizesWithTitleFontName:(NSString *)titleFontName bodyFontName:(NSString *)bodyFontName buttonFontName:(NSString *)buttonFontName;
+
 #pragma mark - Make Current
 
 /**
